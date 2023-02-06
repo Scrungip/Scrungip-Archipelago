@@ -13,6 +13,7 @@ class AM2RLogic(LogicMixin):
 
     def _AM2R_can_fly(self, world: MultiWorld, player: int) -> bool:
         return self.has_any({'Bombs', 'Space Jump'}, player)
+
     def _AM2R_can_spider(self, world: MultiWorld, player: int) -> bool:
         return self.has('Spiderball', player) or self._AM2R_can_fly(world, player)
 
@@ -21,7 +22,6 @@ class AM2RLogic(LogicMixin):
 
     def _AM2R_has_ballspark(self, world: MultiWorld, player: int) -> bool:
         return self.has_all({'Speed Booster', 'Spring Ball'}, player)
-
 
     def _AM2R_can_down(self,world: MultiWorld, player: int) -> bool:
         return self.has('Speed Booster', player) and self._AM2R_can_bomb(world, player) and self.has('Super Missiles')

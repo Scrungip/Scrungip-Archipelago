@@ -14,7 +14,7 @@ class LocationData(NamedTuple):
     ltype: Optional[str] = ""
     flag: int = 0
 
-location_region_mapping: Dict[str, Dict[str, LocationData]] = {
+location_region_mapping: Dict[str, Dict[str, LocationData]] = {  # todo actual location numbers
     "Golden Temple":{
         "Golden Temple: Bombs": LocationData(2),
         "Golden Temple: Missile below Bombs": LocationData(2),  # bomb
@@ -85,7 +85,7 @@ location_region_mapping: Dict[str, Dict[str, LocationData]] = {
         "Industrial Complex: Guarded by the Alpha": LocationData(2),
         "Industrial Complex: Robot room in the Wall": LocationData(2),
         "Industrial Complex: Robot room un the Floor": LocationData(2),
-        "Industrial Complex: First Supers": LocationData(2, "Super Missile", ammo.static),
+        "Industrial Complex: First Supers": LocationData(2, "Super Missile", ammo.static),  # todo static ammo
     },
     "GFS Thoth":{  # PB
         "GFS Thoth: Hornoad room": LocationData(2),
@@ -101,7 +101,7 @@ location_region_mapping: Dict[str, Dict[str, LocationData]] = {
         "The Tower: Plasma Beam": LocationData(2),
         "The Tower: Beside Tester": LocationData(2),  # pb
         "The Tower: Left side of tower": LocationData(2),  # pb
-        "The Tower: Geothermal Reactor": LocationData(2, "Power Bombs", ammo.static),
+        "The Tower: Geothermal Reactor": LocationData(2, "Power Bombs", ammo.static),  # todo static ammo
         "The Tower: Post Geothermal Chozo": LocationData(2),  # pb
         "The Tower: Post Geothermal Shinespark": LocationData(2),  # Pb + spped + super
     },

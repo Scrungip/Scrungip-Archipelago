@@ -32,7 +32,7 @@ def create_all_items(world: MultiWorld, player: int) -> None:
     static_locations = 0
 
 
-item_table: Dict[str, ItemData] = {
+item_table: Dict[str, ItemData] = {  # todo item data numbers
     'Energy Tank': ItemData(1, 'Etank', ItemClassification.useful),  # 10
     'Missiles': ItemData(1, 'Ammo', ItemClassification.filler),
     'Super Missiles': ItemData(1, 'Ammo', ItemClassification.filler),
@@ -53,7 +53,11 @@ item_table: Dict[str, ItemData] = {
     'S P A Z E R': ItemData(1, 'Beam', ItemClassification.useful),
     'Plasma Beam': ItemData(1, 'Beam', ItemClassification.useful),
     'Ice Beam': ItemData(1, 'Beam', ItemClassification.progression),
-    'Metroid': ItemData(1, 'Metroid', ItemClassification.progression)
+    'Metroid': ItemData(1, 'Metroid', ItemClassification.progression),
+    'Equipment Trap': ItemData(1, 'Trap', ItemClassification.trap),
+    'Freeze Trap': ItemData(1, 'Trap', ItemClassification.trap),
+    'Short Beam': ItemData(1, 'Trap', ItemClassification.trap),
+    'EMP Trap': ItemData(1, 'Trap', ItemClassification.trap),
 }
 
 

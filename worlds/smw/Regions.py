@@ -1155,6 +1155,7 @@ def create_region(world: MultiWorld, player: int, active_locations, name: str, l
 
     return ret
 
+
 def add_location_to_region(world: MultiWorld, player: int, active_locations, region_name: str, location_name: str,
                            rule: typing.Optional[typing.Callable] = None):
     region = world.get_region(region_name, player)
@@ -1164,7 +1165,6 @@ def add_location_to_region(world: MultiWorld, player: int, active_locations, reg
         region.locations.append(location)
         if rule:
             add_rule(location, rule)
-
 
 
 def connect(world: MultiWorld, player: int, used_names: typing.Dict[str, int], source: str, target: str,
