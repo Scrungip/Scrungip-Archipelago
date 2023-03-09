@@ -1,6 +1,6 @@
 from BaseClasses import MultiWorld
 from ..AutoWorld import LogicMixin
-#from .Options import is_option_enabled
+#  from .options import is_option_enabled
 
 
 class AM2RLogic(LogicMixin):
