@@ -29,7 +29,7 @@ item_table = {
     "Gravity_Suit": ItemData(1, ItemClassification.progression),
     "Charge_Beam": ItemData(1, ItemClassification.useful),
     "Wave_Beam": ItemData(1, ItemClassification.useful),
-    "S_P_A_Z_E_R": ItemData(1, ItemClassification.useful),
+    "Spazer": ItemData(1, ItemClassification.useful),
     "Plasma_Beam": ItemData(1, ItemClassification.useful),
     "Ice_Beam": ItemData(1, ItemClassification.progression),
     "Equipment_Trap": ItemData(1, ItemClassification.trap),
@@ -37,10 +37,12 @@ item_table = {
     "Short_Beam": ItemData(1, ItemClassification.trap),
     "EMP_Trap": ItemData(1, ItemClassification.trap),
     "Metroid": ItemData(1, ItemClassification.progression),
+    "Victory": ItemData(1, ItemClassification.progression)
 }
 item_frequencies = {
     "Missile": 44,
     "Super_Missile": 10,
     "Power_Bomb": 10,
     "Energy Tank": 10,
+    "Metroid": 41
 }
