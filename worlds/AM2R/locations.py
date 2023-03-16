@@ -1,6 +1,10 @@
+from BaseClasses import Location
 import typing
 
-from BaseClasses import Location
+
+class LocationData(typing.NamedTuple):
+    id: typing.Optional[int]
+    region: str
 
 
 class AM2RLocation(Location):
@@ -111,4 +115,6 @@ location_table = {
     "Deep Caves: Ball Spark": LocationData(2, "Deep Caves"),
     "Deep Caves: Behind the Bomb Block": LocationData(2, "Deep Caves"),
     "Deep Caves: After Omega": LocationData(2, "Deep Caves"),
+
+    "The Last Metroid is in Captivity": LocationData(None, "Research Station")
 }

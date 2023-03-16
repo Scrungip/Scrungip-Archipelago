@@ -8,14 +8,14 @@ class ItemData(typing.NamedTuple):
 
 
 class AM2RItem(Item):
-    game = str = "AM2R"
+    game: str = "AM2R"
 
 
 item_table = {
-    "Missile": ItemData(1, ItemClassification.progression),
-    "Super_Missile": ItemData(1, ItemClassification.progression),
-    "Power_Bomb": ItemData(1, ItemClassification.progression),
-    "Energy_Tank": ItemData(1, ItemClassification.useful),
+    "Missile": ItemData(1, ItemClassification.filler),
+    "Super_Missile": ItemData(1, ItemClassification.filler),
+    "Power_Bomb": ItemData(1, ItemClassification.filler),
+    "Energy_Tank": ItemData(1, ItemClassification.filler),
     #  "Morph_ball": ItemData(1, ItemClassification.progression)
     #  "Power_Grip": ItemData(1, ItemClassification.progression)
     "Bombs": ItemData(1, ItemClassification.progression),
@@ -37,12 +37,6 @@ item_table = {
     "Short_Beam": ItemData(1, ItemClassification.trap),
     "EMP_Trap": ItemData(1, ItemClassification.trap),
     "Metroid": ItemData(1, ItemClassification.progression),
-    "Victory": ItemData(1, ItemClassification.progression)
+    "The Galaxy is at Peace": ItemData(1, ItemClassification.progression)
 }
-item_frequencies = {
-    "Missile": 44,
-    "Super_Missile": 10,
-    "Power_Bomb": 10,
-    "Energy Tank": 10,
-    "Metroid": 41
-}
+
