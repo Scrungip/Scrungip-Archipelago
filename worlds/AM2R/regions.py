@@ -1,146 +1,258 @@
-from dataclasses import dataclass, field
-from enum import IntFlag
-from random import Random
-from typing import Iterable, Dict, Protocol, Optional, List, Tuple
+from typing import List, Set, Dict, Tuple, Optional, Callable, NamedTuple
+from BaseClasses import CollectionState, MultiWorld, Region, Entrance, Location
+from .options import is_option_enabled
+from .locations import LocationData, get_location_datas
+from .rules import AM2RLogic
 
-from BaseClasses import Region, Entrance
-from . import options
-from .options import AM2ROptions
+EventId: Optional[int] = None
 
-
-class RegionFactory(Protocol):
-    def __call__(self, name: str, regions: Iterable[str]) -> Region:
-        raise NotImplementedError
-
-
-class RandomizationFlag(IntFlag):
-    NOT_RANDOMIZED = 0b0
-    AREA_RANDO = 0b11111
-    BOSS_RANDO = 0b11110
-    PIPE_RANDO = 0b11100
-
-
-@dataclass(frozen=True)
-class RegionData:
+class LocationData(NamedTuple):
+    region: str
     name: str
-    exits: List[str] = field(default_factory=list)
+    code: Optional[int]
+    rule: Callable[[CollectionState], bool] = lambda state: True
+def create_regions_and_locations(world: MultiWorld, player: int):
+    location_datas: Tuple[LocationData] = get_location_datas(world, player)
+
+    locations_per_region: Dict[str, List[LocationData]] = split_location_datas_per_region(location_datas)
+
+    regions = [
+        create_region(world, player, locations_per_region, "Menu"),
+        create_region(world, player, locations_per_region, "Main Caves"),
+        create_region(world, player, locations_per_region, "First Alpha"),
+        create_region(world, player, locations_per_region, "Guardian"),
+        create_region(world, player, locations_per_region, "Golden Temple"),
+        create_region(world, player, locations_per_region, "Golden Temple Nest"),
+        create_region(world, player, locations_per_region, "Hydro Station"),
+        create_region(world, player, locations_per_region, "Inner Hydro Station"),
+        create_region(world, player, locations_per_region, "Hydro Nest"),
+        create_region(world, player, locations_per_region, "Arachnus"),
+        create_region(world, player, locations_per_region, "Mines"),
+        create_region(world, player, locations_per_region, "Industrial Complex Nest"),
+        create_region(world, player, locations_per_region, "Pre Industrial Complex"),
+        create_region(world, player, locations_per_region, "Industrial Complex"),
+        create_region(world, player, locations_per_region, "Torizo Ascended"),
+        create_region(world, player, locations_per_region, "The Tower"),
+        create_region(world, player, locations_per_region, "Geothermal"),
+        create_region(world, player, locations_per_region, "Tester"),
+        create_region(world, player, locations_per_region, "Tester Upper"),
+        create_region(world, player, locations_per_region, "Tester Lower"),
+        create_region(world, player, locations_per_region, "Underwater Distribution Center"),
+        create_region(world, player, locations_per_region, "Underwater Distro Connection"),
+        create_region(world, player, locations_per_region, "Serris"),
+        create_region(world, player, locations_per_region, "Ice Beam"),
+        create_region(world, player, locations_per_region, "Pipe Hell BL"),
+        create_region(world, player, locations_per_region, "Pipe Hell BR"),
+        create_region(world, player, locations_per_region, "Pipe Hell L"),
+        create_region(world, player, locations_per_region, "Pipe Hell R"),
+        create_region(world, player, locations_per_region, "Pipe Hell Outside"),
+        create_region(world, player, locations_per_region, "Fast Travel"),
+        create_region(world, player, locations_per_region, "Gravity"),
+        create_region(world, player, locations_per_region, "EMP"),
+        create_region(world, player, locations_per_region, "GFS Thoth"),
+        create_region(world, player, locations_per_region, "Genesis"),
+        create_region(world, player, locations_per_region, "Deep Caves"),
+        create_region(world, player, locations_per_region, "Omega Nest"),
+        create_region(world, player, locations_per_region, "The Lab"),
+        create_region(world, player, locations_per_region, "Research Station")
+    ]
+
+    if __debug__:
+        throwIfAnyLocationIsNotAssignedToARegion(regions, locations_per_region.keys())
+
+    world.regions += regions
+
+    logic = AM2RLogic(world, player)
+
+    connect(world, player, "Menu", "Main Caves"),
+
+    connect(world, player, "Main Caves", "Guardian"),
+    connect(world, player, "Guardian", "Main Caves"),
+
+    connect(world, player, "Main Caves", "First Alpha"),
+    connect(world, player, "First Alpha", "Main Caves"),
+
+    connect(world, player, "Main Caves", "Hydro Station"),
+    connect(world, player, "Hydro Station", "Main Caves"),
+
+    connect(world, player, "Main Caves", "Mines"),
+    connect(world, player, "Mines", "Main Caves"),
+
+    connect(world, player, "Main Caves", "Industrial Complex Nest"),
+    connect(world, player, "Industrial Complex Nest", "Main Caves"),
+
+    connect(world, player, "Main Caves", "The Tower"),
+    connect(world, player, "The Tower", "Main Caves"),
+
+    connect(world, player, "Main Caves", "Underwater Distribution Center"),
+    connect(world, player, "Underwater Distribution Center", "Main Caves"),
+
+    connect(world, player, "Main Caves", "Deep Caves",),
+    connect(world, player, "Deep Caves", "Main Caves"),
+
+    connect(world, player, "Main Caves", "GFS Thoth"),
+    connect(world, player, "GFS Thoth", "Main Caves"),
+
+    connect(world, player, "Guardian", "Golden Temple"),
+    connect(world, player, "Golden Temple", "Guardian"),
+
+    connect(world, player, "Guardian", "Golden Temple Nest"),
+    connect(world, player, "Golden Temple Nest", "Guardian"),
+
+    connect(world, player, "Golden Temple", "Fast Travel", lambda state: state.has("Screw Attack", player)),
+    connect(world, player, "Fast Travel", "Golden Temple", lambda state: state.has("Screw Attack", player)),
+
+    connect(world, player, "Hydro Station", "Hydro Nest", logic.AM2R_can_jump),
+    connect(world, player, "Hydro Nest", "Hydro Station"),
+
+    connect(world, player, "Hydro Station", "The Tower", lambda state: state.has("Screw Attack", player)),
+    connect(world, player, "The Tower", "Hydro Station", lambda state: state.has("Screw Attack", player)),
+
+    connect(world, player, "Hydro Station", "The Lab", lambda state: state.has("Screw Attack", player)),  # todo make this right
+    connect(world, player, "The Lab", "Hydro Station", lambda state: state.has("Screw Attack", player)),
+
+    connect(world, player, "Hydro Station", "Arachnus", logic.AM2R_can_bomb),
+    connect(world, player, "Arachnus", "Hydro Station"),
+
+    connect(world, player, "Hydro Station", "Inner Hydro Station", lambda state: state.has("Screw Attack", player) or logic.AM2R_can_bomb(state))
+    connect(world, player, "Inner Hydro Station", "Hydro Station", lambda state: state.has("Screw Attack", player) or logic.AM2R_can_bomb(state))
+
+    connect(world, player, "Industrial Complex Nest", "Pre Industrial Complex"),
+    connect(world, player, "Pre Industrial Complex", "Industrial Complex Nest"),
+
+    connect(world, player, "Pre Industrial Complex", "Industrial Complex"),
+    connect(world, player, "Industrial Complex", "Pre Industrial Complex", lambda state: state.has("Speed Booster", player)),
+
+    connect(world, player, "Pre Industrial Complex", "Fast Travel", lambda state: state.has("Screw Attack", player)),
+    connect(world, player, "Fast Travel", "Pre Industrial Complex", lambda state: state.has("Screw Attack", player)),
+
+    connect(world, player, "Pre Industrial Complex", "Torizo Ascended"),
+    connect(world, player, "Torizo Ascended", "Pre Industrial Complex"),
+    # A4 to Geothermal
+    connect(world, player, "The Tower", "Geothermal"),
+    connect(world, player, "Geothermal", "The Tower", lambda state: state.has("Speed Booster", player) and state.has("Power Bomb", player)),
+    # tower to A5
+    connect(world, player, "The Tower", "Fast Travel", lambda state: state.has("Screw Attack", player)),
+    connect(world, player, "Fast Travel", "The Tower", lambda state: state.has("Screw Attack", player)),
+    # tester
+    connect(world, player, "The Tower", "Tester Lower", logic.AM2R_can_bomb),
+    connect(world, player, "The Tower", "Tester Upper", logic.AM2R_can_bomb),
+    connect(world, player, "Tester Lower", "Tester Upper"),
+    connect(world, player, "Tester Upper", "Tester Lower"),
+    connect(world, player, "Tester Lower", "The Tower"),
+    connect(world, player, "Tester Upper", "The Tower"),
+    # A5
+    connect(world, player, "Underwater Distribution Center", "EMP"),
+    connect(world, player, "EMP", "Underwater Distribution Center"),
+
+    connect(world, player, "Underwater Distribution Center", "Serris"),
+    connect(world, player, "Serris", "Underwater Distribution Center"),
+
+    connect(world, player, "Ice Beam", "Serris"),
+    connect(world, player, "Serris", "Ice Beam"),
+
+    # Pipe Hell Fuckery
+    connect(world, player, "EMP", "Pipe Hell BL"),
+    connect(world, player, "Pipe Hell BL", "EMP"),
+
+    connect(world, player, "Pipe Hell BL", "Pipe Hell BR"),
+    connect(world, player, "Pipe Hell BR", "Pipe Hell BL"),
+
+    connect(world, player, "Pipe Hell L", "Pipe Hell BL", lambda state: state.has("Screw Attack", player)),
+    connect(world, player, "Pipe Hell BL", "Pipe Hell L", lambda state: state.has("Screw Attack", player)),
+
+    connect(world, player, "Pipe Hell BR", "Pipe Hell L"),
+    connect(world, player, "Pipe Hell L", "Pipe Hell BR"),
+
+    connect(world, player, "Pipe Hell BR", "Pipe Hell R", lambda state: state.has("Screw Attack", player)),
+    connect(world, player, "Pipe Hell R", "Pipe Hell BR", lambda state: state.has("Screw Attack", player)),
+
+    connect(world, player, "Pipe Hell R", "Pipe Hell L", logic.AM2R_can_bomb),
+    connect(world, player, "Pipe Hell L", "Pipe Hell R", logic.AM2R_can_bomb),
+
+    connect(world, player, "Pipe Hell L", "Fast Travel", lambda state: state.has("Screw Attack", player)),
+    connect(world, player, "Fast Travel", "Pipe Hell L", lambda state: state.has("Screw Attack", player)),
+
+    connect(world, player, "Fast Travel", "Gravity"),  # one way transition due to crumbles
+
+    connect(world, player, "Fast Travel", "Underwater Distribution Center"),
+    connect(world, player, "Underwater Distribution Center", "Fast Travel", lambda state: state.can_reach("Fast Travel", "Region", player)),
+
+    connect(world,player, "Gravity", "Pipe Hell Outside", lambda state: state.has("Gravity Suit", player) and state.has("Spcae Jump", player)),
+    connect(world,player, "Pipe Hell Outside", "Gravity"),
+
+    connect(world, player, "Pipe Hell Outside", "Pipe Hell R"),
+    connect(world, player, "Pipe Hell R", "Pipe Hell Outside", lambda state: state.can_reach("Pipe Hell Outside", "Region", player)),
+
+    connect(world, player, "Underwater Distribution Center", "Underwater Distro Connection", lambda state: state.has("Ice Beam", player) or (state.has("Gravity Suit", player) and state.has("Speed Booster", player))),
+    connect(world, player, "Underwater Distro Connection", "Underwater Distribution Center", lambda state: state.has("Ice Beam", player) or (state.has("Gravity Suit", player) and state.has("Speed Booster", player))),
+
+    connect(world, player, "Underwater Distro Connection", "Pipe Hell R"),
+    connect(world, player, "Pipe Hell R", "Underwater Distro Connection", lambda state: state.has("Super Missile", player) or (state.has("Gravity Suit", player) and state.has("Speed Booster", player)))
+
+    connect(world, player, "Deep Caves", "Omega Nest")
+    connect(world, player, "Omega Nest", "Deep Caves")
+
+    connect(world, player, "Omega Nest", "The Lab", logic.AM2R_can_lab)
+    connect(world, player, "The Lab", "Omega Nest", logic.AM2R_can_lab)
+
+    connect(world, player, "The Lab", "Research Station")
 
 
-@dataclass(frozen=True)
-class ConnectionData:
-    name: str
-    destination: str
-    reverse: Optional[str] = None
-    flag: RandomizationFlag = RandomizationFlag.NOT_RANDOMIZED
-
-    def __post_init__(self):
-        if self.reverse is None and " to " in self.name:
-            origin, destination = self.name.split(" to ")
-            super().__setattr__("reverse", f"{destination} to {origin}")
 
 
-AM2R_regions = [
-    RegionData('Menu', ['New Game']),
-    RegionData('Main Caves', ['To Alpha', 'Fight Guardian', 'Reach A2', 'Reach Mines', 'Reach A3 Nest',
-                              'Reach A4', 'Reach A5', 'Reach A6', 'Reach GFS']),
-    RegionData('Guardian', ['Reach A1', 'Reach A1 Nest']),
-    RegionData('Golden Temple', ['A1-Pipe Hell Pipe']),
-    RegionData('Golden Temple Nest'),
-    RegionData('Hydro Station', ['Reach A2 Nest', 'A2-A4 Pipe', 'A2-Lab Pipe', 'Fight Arachnus']),
-    RegionData('Hydro Nest'),
-    RegionData('Arachnus'),
-    RegionData('Mines'),
-    RegionData('Industrial Complex Nest', ['Reach A3']),
-    RegionData('Pre Industrial Complex', ['To A3 Pipe', 'I find it quite simple', 'Fight Torizo Ascended']),
-    RegionData('Torizo Ascended'),
-    RegionData('Industrial Complex'),
-    RegionData('The Tower', ['Reach Basement', 'Fight Tester']),
-    RegionData('Geothermal'),
-    RegionData('Tester', ['Leave Tester']),
-    RegionData('Distribution Center', ['Reach EMP Win', 'Reach Bottom Hell', 'Reach Top Hell',
-                                       'Fight Serris', ]),
-    RegionData('Serris', ['Exit Stage Left']),
-    RegionData('Pipe Hell', ['Grav Win Pipe', 'BL-BR Pipe', 'TL-TR Pipe']),
-    RegionData('Gravity', ['Reach Outside Hell']),
-    RegionData('EMP', ['Reach Pipe Hell Lose']),
-    RegionData('GFS Thoth' ['Fight Genesis']),
-    RegionData('Genesis'),
-    RegionData('Deep Caves', ['reach Omega Nest']),
-    RegionData('Omega Nest')
-]
+def throwIfAnyLocationIsNotAssignedToARegion(regions: List[Region], regionNames: Set[str]):
+    existingRegions: Set[str] = set()
 
-mandatory_connections = [
-    ConnectionData('New Game', 'Main Caves'),
-    ConnectionData('To Alpha', 'First Alpha', flag=RandomizationFlag.AREA_RANDO),
-    ConnectionData('Fight Guardian', 'Guardian', flag=RandomizationFlag.BOSS_RANDO_2),
-    ConnectionData('Reach A1', 'Golden Temple', flag=RandomizationFlag.BOSS_RANDO_2),
-    ConnectionData('Reach A2', 'Hydro Station', flag=RandomizationFlag.AREA_RANDO),
-    ConnectionData('Reach Mines', 'Mines', flag=RandomizationFlag.AREA_RANDO),
-    ConnectionData('Reach A3 Nest', 'Industrial Complex Nest', flag=RandomizationFlag.AREA_RANDO),
-    ConnectionData('Reach GFS', 'GFS Thoth', flag=RandomizationFlag.AREA_RANDO),
-    ConnectionData('Fight Genesis', 'Genesis', flag=RandomizationFlag.BOSS_RANDO_1),
-    ConnectionData('Reach A4', 'The Tower', flag=RandomizationFlag.AREA_RANDO),
-    ConnectionData('Reach A5', 'Distribution Center', flag=RandomizationFlag.AREA_RANDO),
-    ConnectionData('Reach A6', 'Deep Caves', flag=RandomizationFlag.AREA_RANDO),
-    ConnectionData('Reach A1 Nest', 'Golden Temple Nest', flag=RandomizationFlag.AREA_RANDO),
-    ConnectionData('A1-Pipe Hell Pipe', 'Pipe Hell', flag=RandomizationFlag.PIPE_RANDO),
-    ConnectionData('Reach A2 Nest', 'Hydro Station Nest', flag=RandomizationFlag.AREA_RANDO),
-    ConnectionData('A2-A4 Pipe', 'The Tower', flag=RandomizationFlag.PIPE_RANDO),
-    ConnectionData('A2-Lab Pipe', 'Omega Nest', flag=RandomizationFlag.PIPE_RANDO),
-    ConnectionData('Fight Arachnus', 'Arachnus', flag=RandomizationFlag.BOSS_RANDO_1),
-    ConnectionData('Reach A3', 'Pre Industrial Complex', flag=RandomizationFlag.AREA_RANDO),
-    ConnectionData('I find it quite simple', 'Industrial Complex', flag=RandomizationFlag.AREA_RANDO),
-    ConnectionData('Fight Torizo Ascended', 'Torizo Ascended', flag=RandomizationFlag.BOSS_RANDO_1),
-    ConnectionData('Reach Basement', 'Geothermal', flag=RandomizationFlag.AREA_RANDO),
-    ConnectionData('Fight Tester', 'Tester', flag=RandomizationFlag.BOSS_RANDO_2),
-    ConnectionData('Leave Tester', 'The Tower', flag=RandomizationFlag.BOSS_RANDO_2),
-    ConnectionData('Reach EMP Win', 'EMP', flag=RandomizationFlag.AREA_RANDO),
-    ConnectionData('Reach Pipe Hell Lose', 'Pipe Hell', flag=RandomizationFlag.AREA_RANDO),
-    ConnectionData('Reach Bottom Hell', 'Pipe Hell', flag=RandomizationFlag.AREA_RANDO),
-    ConnectionData('Reach Top Hell', 'Pipe Hell', flag=RandomizationFlag.AREA_RANDO),
-    ConnectionData('Fight Serris', 'Serris', flag=RandomizationFlag.BOSS_RANDO_2),
-    ConnectionData('Exit Stage Left', 'Distribution Center', flag=RandomizationFlag.BOSS_RANDO_2),
-    ConnectionData('Grav Win Pipe', 'Gravity', flag=RandomizationFlag.PIPE_RANDO),
-    ConnectionData('BL-BR Pipe', 'Pipe Hell', flag=RandomizationFlag.PIPE_RANDO),
-    ConnectionData('TL-TR Pipe', 'Pipe Hell', flag=RandomizationFlag.PIPE_RANDO),
-    ConnectionData('Reach Outside Hell', 'Pipe Hell', flag=RandomizationFlag.AREA_RANDO),
-    ConnectionData('Reach Omega Nest', 'Omega Nest', flag=RandomizationFlag.AREA_RANDO)
-]
+    for region in regions:
+        existingRegions.add(region.name)
+
+    if regionNames - existingRegions:
+        raise Exception(
+            "AM2R: the following regions are used in locations: {}, but no such region exists".format(
+                regionNames - existingRegions))
 
 
-#  def create_regions(region_factory: RegionFactory, random: Random, world_options: AM2ROptions) -> Tuple[Iterable[Region], Dict[str, str]]:
-    #  regions: Dict[str: Region] = {region.name: region_factory(region.name, region.exits) for region in AM2R_regions}
-    #  entrances: Dict[str: Entrance] = {entrance.name: entrance
-                                      #  for region in regions.values()
-                                      #  for entrance in region.exits}
+def create_location(player: int, location_data: LocationData, region: Region) -> Location:
+    location = Location(player, location_data.name, location_data.code, region)
+    location.access_rule = location_data.rule
 
-    #  connections, randomized_data = randomize_connections(random, world_options)
+    if id is None:
+        location.event = True
+        location.locked = True
 
-    #  for connection in connections:
-        #  if connection.name not in entrances:
-            #  continue
-        #  entrances[connection.name].connect(regions[connection.destination])
-
-    #  return regions.values(), randomized_data
+    return location
 
 
-#  def randomize_connections(random: Random, world_options: AM2ROptions) -> Tuple[List[ConnectionData], Dict[str, str]]:  # todo this section
-    #  connections_to_randomize = []
-    #  if world_options[options.EntranceRandomization] == options.AreaRando.option_area:
-        #  connections_to_randomize = [connection for connection in mandatory_connections if RandomizationFlag.AREA_RANDO in connection.flag]
-    #  elif world_options[options.EntranceRandomization] == options.AreaRando.option_boss:
-        #  connections_to_randomize = [connection for connection in mandatory_connections if RandomizationFlag.BOSS_RANDO in connection.flag]
-    #  random.shuffle(connections_to_randomize)
+def create_region(world: MultiWorld, player: int, locations_per_region: Dict[str, List[LocationData]],name: str) -> Region:
+    region = Region(name, player, world)
 
-    #  destination_pool = list(connections_to_randomize)
-    #  random.shuffle(destination_pool)
+    if name in locations_per_region:
+        for location_data in locations_per_region[name]:
+            location = create_location(player, location_data, region)
+            region.locations.append(location)
 
-    #  randomized_connections = []
-    #  randomized_data = {}
-    #  for connection in connections_to_randomize:
-        #  destination = destination_pool.pop()
-        #  randomized_connections.append(ConnectionData(connection.name, destination.destination, destination.reverse))
-        #  randomized_data[connection.name] = destination.name
-        #  randomized_data[destination.reverse] = connection.reverse
+    return region
 
-    #  return mandatory_connections, randomized_data
+
+def connect(world: MultiWorld, player: int, source: str, target: str,
+            rule: Optional[Callable[[CollectionState], bool]] = None):
+    sourceRegion = world.get_region(source, player)
+    targetRegion = world.get_region(target, player)
+
+    connection = Entrance(player, "", sourceRegion)
+
+    if rule:
+        connection.access_rule = rule
+
+    sourceRegion.exits.append(connection)
+    connection.connect(targetRegion)
+
+
+def split_location_datas_per_region(locations: Tuple[LocationData, ...]) -> Dict[str, List[LocationData]]:
+    per_region: Dict[str, List[LocationData]] = {}
+
+    for location in locations:
+        per_region.setdefault(location.region, []).append(location)
+
+    return per_region

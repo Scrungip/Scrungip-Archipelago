@@ -1,27 +1,42 @@
-from BaseClasses import MultiWorld
-from ..AutoWorld import LogicMixin
-#  from .options import is_option_enabled
+from typing import Union
+from BaseClasses import MultiWorld, CollectionState
+from .options import is_option_enabled
 
 
-class AM2RLogic(LogicMixin):
+class AM2RLogic:
+    player: int
 
-    def _AM2R_can_bomb(self, world: MultiWorld, player: int) -> bool:
-        return self.has_any({'Bombs', 'Power Bombs'}, player)
+    def __init__(self, world: MultiWorld, player: int):
+        self.player = player
 
-    def _AM2R_can_jump(self, world: MultiWorld, player: int) -> bool:
-        return self.has_any({'Hi Jump', 'Space Jump', 'Bombs'}, player)
+    def AM2R_can_bomb(self, state: CollectionState) -> bool:
+        return state.has_any({'Bombs', 'Power Bombs'}, self.player)
 
-    def _AM2R_can_fly(self, world: MultiWorld, player: int) -> bool:
-        return self.has_any({'Bombs', 'Space Jump'}, player)
+    def AM2R_can_jump(self, state: CollectionState) -> bool:
+        return state.has_any({'Hi Jump', 'Space Jump', 'Bombs'}, self.player)
 
-    def _AM2R_can_spider(self, world: MultiWorld, player: int) -> bool:
-        return self.has('Spiderball', player) or self._AM2R_can_fly(world, player)
+    def AM2R_can_fly(self, state: CollectionState) -> bool:
+        return state.has_any({'Bombs', 'Space Jump'}, self.player)
 
-    def _AM2R_can_schmove(self, world: MultiWorld, player: int) -> bool:
-        return self._AM2R_can_spider(world, player) or self.has('Hi Jump', player)
+    def AM2R_can_spider(self, state: CollectionState) -> bool:
+        return state.has('Spiderball', self.player) \
+            or self.AM2R_can_fly(state)
 
-    def _AM2R_has_ballspark(self, world: MultiWorld, player: int) -> bool:
-        return self.has_all({'Speed Booster', 'Spring Ball'}, player)
+    def AM2R_can_schmove(self, state: CollectionState) -> bool:
+        return self.AM2R_can_spider(state) \
+            or state.has('Hi Jump', self.player)
 
-    def _AM2R_can_down(self,world: MultiWorld, player: int) -> bool:
-        return self.has('Speed Booster', player) and self._AM2R_can_bomb(world, player) and self.has('Super Missiles')
+    def AM2R_has_ballspark(self, state: CollectionState) -> bool:
+        return state.has_all({'Speed Booster', 'Spring Ball'}, self.player)
+
+    def AM2R_can_down(self, state: CollectionState) -> bool:
+        return state.has_all({'Speed Booster', 'Ice Beam'}, self.player)
+
+    def AM2R_can_lab(self, state: CollectionState) -> bool:
+        return state.has_all({'Speed Booster', 'Ice Beam'}, self.player)
+
+#    def AM2R_can_down(self, state: CollectionState) -> bool:
+#        return state.has('metroids', self.player)  # todo make this right
+
+#    def AM2R_can_lab(self, state: CollectionState) -> bool:
+#        return state.has('omegas', self.player)  # todo make this right

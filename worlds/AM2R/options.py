@@ -11,12 +11,17 @@ class MetroidsRequired(Range):
     default = 41
 
 
-class MetroidsAreChecks(Toggle):
+class MetroidsAreChecks(Choice):
     """Have each of the 46 non lab Metroids be treated as locations"""
     display_name = "Metroids are Checks"
+    default = 0
+    option_disabled = 0
+    option_exclude_A6 = 1
+    option_include_A6 = 2
 
 
-class TrapFillPrecentage(Range):
+
+class TrapFillPercentage(Range):
     """Adds in Slightly inconvenient Traps into the item pool Equipment Traps disable 1 random item for up to 3 minutes
     depending on the disabled item (more critical items will be disabled for less time).  Ice Traps seem rather
     self-explanatory, but they will freeze you upon receiving them with a full fanfare and an actual player freeze"""
@@ -33,41 +38,65 @@ class Traps(OptionList):
     default = {"Equipment Trap", "Ice Trap", "Short Beam", "EMP Trap"}
 
 
-#  class AreaRando(Choice):
-    #  """Activates Area Randomization and or Boss Randomization, also activates rolling saves as softlock prevention
-    #  Area Randomizer will shuffle various Areas arround in order to create a new expierence
-    #  Boss Randomization randomizes Arachnus, Torizo Ascended, and Genesis with each other also then randomizes
-    #  Temple Guardian, Tester and Serris
-    #  Both activates Both independently on their own"""
-    #  display_name = "Area Randomizer"
-
-    #  default = 0
-    #  option_disabled = 0
-    #  option_area = 1
-    #  option_boss = 2
-    #  option_both = 3
-    #  option_chaos = 4
+#class ItemSprites(OptionList):
+#    """Changes Item Sprites """
+#    display_name = "Item Sprites"
+#    default = 0
+#    option_normal = 0
+#    option_themed = 1
+#    option_chiny = 2
+#    option_ungrouped = 3
+#    option_lies = 4
 
 
-#  class BossRando(Toggle):
-    #  """Activates Boss Randomization randomizes Arachnus, Torizo Ascended, and Genesis with each other.
-    #  then also randomizes Temple Guardian, Tester abd Serris"""
-    #  display_name = "Boss Randomizer"
+
+#class StartingWeapons(Choice):
+#    """Removes your Arm Cannon and makes it a findable item"""
+#    display_name = "Starting Weapons"
+#    default = 0
+#    option_normal = 0
+#    option_missiles_only = 1
+#    option_beam_only = 2
+#    option_none = 3
+
+
+class RandomizeBaby(Toggle):
+    """Randomizes the baby metroid as a cosmetic find"""
+    display_name = "Randomize Baby"
+
+
+#class AreaRando(Choice):
+#    """Activates Area Randomization and or Boss Randomization, also activates rolling saves as softlock prevention
+#    Area Randomizer will shuffle various Areas arround in order to create a new expierence
+#    Boss Randomization randomizes Arachnus, Torizo Ascended, and Genesis with each other also then randomizes
+#    Temple Guardian, Tester and Serris
+#    Both activates Both independently on their own"""
+#    display_name = "Area Randomizer"
+#
+#    default = 0
+#    option_disabled = 0
+#    option_area = 1
+#    option_boss = 2
+#    option_both = 3
 
 
 #  class IceMissiles(Toggle):
-    #  """Changes missiles to have Ice properties """
-    #  display_name = "Ice Missiles"
+#  """Changes missiles to have Ice properties
+#  Does not account for jumping off enimies
+#  only counts as being able to freeze meboids and metroid larva"""
+#  display_name = "Ice Missiles"
 
 
 AM2R_options: Dict[str, type(Option)] = {
-    "metroids_required": MetroidsRequired,
-    "metroids_are_checks": MetroidsAreChecks,
-    "trap_fill_precentage": TrapFillPrecentage,
-    "traps": Traps,
-    #  "area_rando":  AreaRando,
-    #  "boss_rando":  BossRando,
-    #  "ice_missiles":  IceMissiles,
+    "Metroids Required": MetroidsRequired,
+    "Metroids are Checks": MetroidsAreChecks,
+    "Trap Fill Percentage": TrapFillPercentage,
+    "Traps": Traps,
+    #  "Item Sprites": ItemSprites,
+    #  "Starting Weapons": StartingWeapons,
+    #  "Randomize Baby", RandomizeBaby
+    #  "Area Rando": AreaRando,
+    #  "Ice Missiles":  IceMissiles,
     #  "DeathLink": DeathLink,
 }
 
