@@ -1,6 +1,7 @@
+import itertools
 from typing import Union
 from BaseClasses import MultiWorld, CollectionState
-from .options import is_option_enabled
+from .options import MetroidsRequired, MetroidsAreChecks, get_option_value
 
 
 class AM2RLogic:
@@ -30,13 +31,28 @@ class AM2RLogic:
         return state.has_all({'Speed Booster', 'Spring Ball'}, self.player)
 
     def AM2R_can_down(self, state: CollectionState) -> bool:
-        return state.has_all({'Speed Booster', 'Ice Beam'}, self.player)
+        amount = get_option_value(MultiWorld, self.player, "MetroidsRequired")
+
+        if MetroidsAreChecks == MetroidsAreChecks.option_exclude_A6 or MetroidsAreChecks.option_include_A6:
+            return state.has("Metroid", self.player, amount) \
+                and state.has_all({"Speed Booster", "Ice Beam", "Super Missile", "Screw Attack"}, self.player) \
+                and self.AM2R_can_fly(state) and self.AM2R_can_bomb(state)
+        else:
+            return state.has_all({"Speed Booster", "Ice Beam", "Super Missile", "Screw Attack"}, self.player) \
+                and self.AM2R_can_fly(state) and self.AM2R_can_bomb(state)
 
     def AM2R_can_lab(self, state: CollectionState) -> bool:
-        return state.has_all({'Speed Booster', 'Ice Beam'}, self.player)
+        amount = get_option_value(MultiWorld, self.player, "MetroidsRequired")
 
-#    def AM2R_can_down(self, state: CollectionState) -> bool:
-#        return state.has('metroids', self.player)  # todo make this right
-
-#    def AM2R_can_lab(self, state: CollectionState) -> bool:
-#        return state.has('omegas', self.player)  # todo make this right
+        if MetroidsAreChecks == MetroidsAreChecks.option_include_A6:
+            amount += 5
+            return state.has("Metroid", self.player, amount) \
+                and state.has_all({"Speed Booster", "Ice Beam", "Super Missile", "Screw Attack"}, self.player) \
+                and self.AM2R_can_fly(state) and self.AM2R_can_bomb(state)
+        elif MetroidsAreChecks == MetroidsAreChecks.option_exclude_A6:
+            return state.has("Metroid", self.player, amount) \
+                and state.has_all({"Speed Booster", "Ice Beam", "Super Missile", "Screw Attack"}, self.player) \
+                and self.AM2R_can_fly(state) and self.AM2R_can_bomb(state)
+        else:
+            return state.has_all({"Speed Booster", "Ice Beam", "Super Missile", "Screw Attack"}, self.player) \
+                and self.AM2R_can_fly(state) and self.AM2R_can_bomb(state)

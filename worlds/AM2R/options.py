@@ -1,11 +1,11 @@
-from typing import Dict, Union, List
+from typing import Union, List, Dict
 from BaseClasses import MultiWorld
-from Options import Option, Range, DeathLink, SpecialRange, Toggle, Choice, OptionList
+from Options import AssembleOptions, Choice, DeathLink, DefaultOnToggle, Range, StartInventoryPool
 
 
 class MetroidsRequired(Range):
     """Chose how many Metroids need to be killed or obtained to go through to the omega nest"""
-    display_name = "Metroids Required"
+    display_name = "Metroids Required for Omega Nest"
     range_start = 0
     range_end = 41
     default = 41
@@ -20,7 +20,6 @@ class MetroidsAreChecks(Choice):
     option_include_A6 = 2
 
 
-
 class TrapFillPercentage(Range):
     """Adds in Slightly inconvenient Traps into the item pool Equipment Traps disable 1 random item for up to 3 minutes
     depending on the disabled item (more critical items will be disabled for less time).  Ice Traps seem rather
@@ -31,23 +30,21 @@ class TrapFillPercentage(Range):
     default = 0
 
 
-class Traps(OptionList):
-    """List of traps that can be found in the pool"""
-    display_name = "Trap Types"
-    valid_keys = {"Equipment Trap", "Ice Trap", "Short Beam", "EMP Trap"}
-    default = {"Equipment Trap", "Ice Trap", "Short Beam", "EMP Trap"}
-
-
 #class ItemSprites(OptionList):
-#    """Changes Item Sprites """
+#    """Changes Item Sprites.  Does not affect gameplay
+#    Sprite Authors appear in the item description"""
 #    display_name = "Item Sprites"
 #    default = 0
-#    option_normal = 0
+#    option_default = 0
 #    option_themed = 1
 #    option_chiny = 2
 #    option_ungrouped = 3
 #    option_lies = 4
 
+
+#class Visuals(Toggle):
+#    """"""Re-colours all the visual elements with new fresh palettes.  Does not affect gameplay.
+#    Courtesy of Abyssal""""""
 
 
 #class StartingWeapons(Choice):
@@ -60,9 +57,9 @@ class Traps(OptionList):
 #    option_none = 3
 
 
-class RandomizeBaby(Toggle):
-    """Randomizes the baby metroid as a cosmetic find"""
-    display_name = "Randomize Baby"
+#class RandomizeBaby(Toggle):
+#    """Randomizes the baby metroid as a cosmetic find"""
+#    display_name = "Randomize Baby"
 
 
 #class AreaRando(Choice):
@@ -82,16 +79,15 @@ class RandomizeBaby(Toggle):
 
 #  class IceMissiles(Toggle):
 #  """Changes missiles to have Ice properties
-#  Does not account for jumping off enimies
+#  Does not account for jumping off enemies
 #  only counts as being able to freeze meboids and metroid larva"""
 #  display_name = "Ice Missiles"
 
 
-AM2R_options: Dict[str, type(Option)] = {
-    "Metroids Required": MetroidsRequired,
-    "Metroids are Checks": MetroidsAreChecks,
-    "Trap Fill Percentage": TrapFillPercentage,
-    "Traps": Traps,
+AM2R_options: Dict[str, AssembleOptions] = {
+    "MetroidsRequired": MetroidsRequired,
+    "MetroidsAreChecks": MetroidsAreChecks,
+    "TrapFillPercentage": TrapFillPercentage,
     #  "Item Sprites": ItemSprites,
     #  "Starting Weapons": StartingWeapons,
     #  "Randomize Baby", RandomizeBaby
@@ -107,7 +103,7 @@ def is_option_enabled(world: MultiWorld, player: int, name: str) -> bool:
 
 def get_option_value(world: MultiWorld, player: int, name: str) -> Union[int, Dict, List]:
     option = getattr(world, name, None)
-    if option == None:
+    if option is None:
         return 0
 
     return option[player].value

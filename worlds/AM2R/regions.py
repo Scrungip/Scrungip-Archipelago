@@ -1,16 +1,18 @@
 from typing import List, Set, Dict, Tuple, Optional, Callable, NamedTuple
 from BaseClasses import CollectionState, MultiWorld, Region, Entrance, Location
-from .options import is_option_enabled
 from .locations import LocationData, get_location_datas
 from .rules import AM2RLogic
 
 EventId: Optional[int] = None
+
 
 class LocationData(NamedTuple):
     region: str
     name: str
     code: Optional[int]
     rule: Callable[[CollectionState], bool] = lambda state: True
+
+
 def create_regions_and_locations(world: MultiWorld, player: int):
     location_datas: Tuple[LocationData] = get_location_datas(world, player)
 
@@ -85,9 +87,9 @@ def create_regions_and_locations(world: MultiWorld, player: int):
     connect(world, player, "The Tower", "Main Caves"),
 
     connect(world, player, "Main Caves", "Underwater Distribution Center"),
-    connect(world, player, "Underwater Distribution Center", "Main Caves"),
+    connect(world, player, "Underwater Distribution Center", "Main Caves", lambda state: state.has("Ice Beam")),
 
-    connect(world, player, "Main Caves", "Deep Caves",),
+    connect(world, player, "Main Caves", "Deep Caves", logic.AM2R_can_down),
     connect(world, player, "Deep Caves", "Main Caves"),
 
     connect(world, player, "Main Caves", "GFS Thoth"),
@@ -108,7 +110,7 @@ def create_regions_and_locations(world: MultiWorld, player: int):
     connect(world, player, "Hydro Station", "The Tower", lambda state: state.has("Screw Attack", player)),
     connect(world, player, "The Tower", "Hydro Station", lambda state: state.has("Screw Attack", player)),
 
-    connect(world, player, "Hydro Station", "The Lab", lambda state: state.has("Screw Attack", player)),  # todo make this right
+    connect(world, player, "Hydro Station", "The Lab", logic.AM2R_can_lab),
     connect(world, player, "The Lab", "Hydro Station", lambda state: state.has("Screw Attack", player)),
 
     connect(world, player, "Hydro Station", "Arachnus", logic.AM2R_can_bomb),
@@ -146,10 +148,10 @@ def create_regions_and_locations(world: MultiWorld, player: int):
     connect(world, player, "EMP", "Underwater Distribution Center"),
 
     connect(world, player, "Underwater Distribution Center", "Serris"),
-    connect(world, player, "Serris", "Underwater Distribution Center"),
+    connect(world, player, "Serris", "Underwater Distribution Center", lambda state: state.has("Gravity Suit", player)),
 
     connect(world, player, "Ice Beam", "Serris"),
-    connect(world, player, "Serris", "Ice Beam"),
+    connect(world, player, "Serris", "Ice Beam", lambda state: state.has("Gravity Suit", player)),
 
     # Pipe Hell Fuckery
     connect(world, player, "EMP", "Pipe Hell BL"),
@@ -193,12 +195,10 @@ def create_regions_and_locations(world: MultiWorld, player: int):
     connect(world, player, "Deep Caves", "Omega Nest")
     connect(world, player, "Omega Nest", "Deep Caves")
 
-    connect(world, player, "Omega Nest", "The Lab", logic.AM2R_can_lab)
-    connect(world, player, "The Lab", "Omega Nest", logic.AM2R_can_lab)
+    connect(world, player, "Omega Nest", "The Lab", logic.AM2R_can_lab)  # , logic.AM2R_can_lab
+    connect(world, player, "The Lab", "Omega Nest")
 
     connect(world, player, "The Lab", "Research Station")
-
-
 
 
 def throwIfAnyLocationIsNotAssignedToARegion(regions: List[Region], regionNames: Set[str]):

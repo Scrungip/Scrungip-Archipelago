@@ -1,2 +1,3 @@
 # todo AM2R client mod
-# todo _init_.py
+# todo Can you add the door lock indicators on the map that Varia added For the door rando patch
+# todo Upon item pickup display sprite author when using the custom sprite options
