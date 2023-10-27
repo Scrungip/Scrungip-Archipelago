@@ -70,7 +70,7 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
         LocationData("Industrial Complex Nest", "Industrial Complex Nest: Nest Shinespark",  8680042, lambda state: state.has("Super Missile", player) and state.has("Speed Booster", player) and logic.AM2R_can_schmove(state) and logic.AM2R_can_bomb(state)),  # super + schmove
 
         LocationData("Pre Industrial Complex", "Industrial Complex: In the Sand",  8680043),
-        LocationData("Pre Industrial Complex", "Industrial Complex: Complex Side After Tunnel",  8680044, logic.AM2R_can_spider(state)),
+        LocationData("Pre Industrial Complex", "Industrial Complex: Complex Side After Tunnel",  8680044, lambda state: state.has("Speed Booster", player) or logic.AM2R_can_spider(state)),
         LocationData("Pre Industrial Complex", "Industrial Complex: Complex Side Tunnel",  8680045, lambda state: state.has("Speed Booster", player) or logic.AM2R_can_spider(state)),
         LocationData("Pre Industrial Complex", "Industrial Complex: Save Room",  8680046, lambda state: state.has("Speed Booster", player) or logic.AM2R_can_spider(state)),
         LocationData("Pre Industrial Complex", "Industrial Complex: Spazer",  8680047, lambda state: state.has("Speed Booster", player) or logic.AM2R_can_spider(state)),
