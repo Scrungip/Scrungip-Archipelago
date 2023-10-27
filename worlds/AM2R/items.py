@@ -105,7 +105,7 @@ item_table: Dict[str, ItemData] = {
     "Short Beam":               ItemData(8678023, "Trap", ItemClassification.trap),
     "EMP Trap":                 ItemData(8678024, "Trap", ItemClassification.trap),
     "Metroid":                  ItemData(8678025, "Metroid", ItemClassification.progression_skip_balancing),
-    "The Galaxy is at Peace":   ItemData(8678025, "Victory", ItemClassification.progression)
+    "The Galaxy is at Peace":   ItemData(8678026, "Victory", ItemClassification.progression)
 
 }
 

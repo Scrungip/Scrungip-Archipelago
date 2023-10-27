@@ -10,7 +10,7 @@ from worlds.AutoWorld import World, WebWorld
 class AM2RWeb(WebWorld):
     theme = "partyTime"
     tutorials = [Tutorial(
-        "Multiworld Setup Tutorial",
+        "Multiworld Setup Guide",
         "A guide to setting up the Archipelago AM2R software on your computer. This guide covers single-player, multiworld, and related software.",
         "English",
         "setup_en.md",
