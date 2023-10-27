@@ -9,17 +9,14 @@ from worlds.AutoWorld import World, WebWorld
 
 class AM2RWeb(WebWorld):
     theme = "partyTime"
-    tutorials = [
-        Tutorial(
-            tutorial_name="Multiworld Setup Tutorial",
-            description="A guide to setting up the Archipelago AM2R software on your computer. This guide covers "
-                        "single-player, multiworld, and related software.",
-            language="English",
-            file_name="AM2R_en.md",
-            link="AM2R/en",
-            authors=["Zed"]
+    setup = Tutorial(
+        "Multiworld Setup Tutorial",
+        "A guide to setting up the Archipelago AM2R software on your computer. This guide covers single-player, multiworld, and related software.",
+        "English",
+        "setup_en.md",
+        "setup/en",
+        ["Zed"]
         )
-    ]
 
 
 class AM2RWorld(World):
@@ -30,6 +27,7 @@ class AM2RWorld(World):
     """
     game = "AM2R"
     option_definitions = options.AM2R_options
+    web = AM2RWeb()
 
     item_name_to_id = items.item_name_to_id
     location_name_to_id = {location.name: location.code for location in get_location_datas(None, None)}
