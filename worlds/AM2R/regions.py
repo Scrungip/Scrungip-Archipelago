@@ -86,8 +86,8 @@ def create_regions_and_locations(world: MultiWorld, player: int):
     connect(world, player, "Main Caves", "The Tower"),
     connect(world, player, "The Tower", "Main Caves"),
 
-    connect(world, player, "Main Caves", "Underwater Distribution Center"),
-    connect(world, player, "Underwater Distribution Center", "Main Caves", lambda state: state.has("Ice Beam")),
+    connect(world, player, "Main Caves", "Underwater Distribution Center", lambda state: state.has("Power Bomb", player) or state.has("Super Missile", player)),
+    connect(world, player, "Underwater Distribution Center", "Main Caves", lambda state: state.has("Ice Beam", player)),
 
     connect(world, player, "Main Caves", "Deep Caves", logic.AM2R_can_down),
     connect(world, player, "Deep Caves", "Main Caves"),
@@ -119,8 +119,8 @@ def create_regions_and_locations(world: MultiWorld, player: int):
     connect(world, player, "Hydro Station", "Inner Hydro Station", lambda state: state.has("Screw Attack", player) or logic.AM2R_can_bomb(state))
     connect(world, player, "Inner Hydro Station", "Hydro Station", lambda state: state.has("Screw Attack", player) or logic.AM2R_can_bomb(state))
 
-    connect(world, player, "Industrial Complex Nest", "Pre Industrial Complex"),
-    connect(world, player, "Pre Industrial Complex", "Industrial Complex Nest"),
+    connect(world, player, "Industrial Complex Nest", "Pre Industrial Complex", lambda state: state.has("Speed Booster", player) or logic.AM2R_can_bomb(state)),
+    connect(world, player, "Pre Industrial Complex", "Industrial Complex Nest", lambda state: state.has("Speed Booster", player) or logic.AM2R_can_bomb(state)),
 
     connect(world, player, "Pre Industrial Complex", "Industrial Complex"),
     connect(world, player, "Industrial Complex", "Pre Industrial Complex", lambda state: state.has("Speed Booster", player)),
@@ -131,7 +131,7 @@ def create_regions_and_locations(world: MultiWorld, player: int):
     connect(world, player, "Pre Industrial Complex", "Torizo Ascended"),
     connect(world, player, "Torizo Ascended", "Pre Industrial Complex"),
     # A4 to Geothermal
-    connect(world, player, "The Tower", "Geothermal"),
+    connect(world, player, "The Tower", "Geothermal", lambda state: state.has("Speed Booster", player) and state.has("Power Bomb", player)),
     connect(world, player, "Geothermal", "The Tower", lambda state: state.has("Speed Booster", player) and state.has("Power Bomb", player)),
     # tower to A5
     connect(world, player, "The Tower", "Fast Travel", lambda state: state.has("Screw Attack", player)),

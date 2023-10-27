@@ -77,7 +77,6 @@ def create_all_items(multiworld: MultiWorld, player: int) -> None:
     multiworld.itempool += [create_item(player, name) for name in itempool]
 
 
-
 item_table: Dict[str, ItemData] = {
     "Missile":                  ItemData(8678000, "Ammo", ItemClassification.filler),
     "Super Missile":            ItemData(8678001, "Ammo", ItemClassification.progression, 1),
@@ -104,7 +103,7 @@ item_table: Dict[str, ItemData] = {
     "Freeze Trap":              ItemData(8678022, "Trap", ItemClassification.trap),
     "Short Beam":               ItemData(8678023, "Trap", ItemClassification.trap),
     "EMP Trap":                 ItemData(8678024, "Trap", ItemClassification.trap),
-    "Metroid":                  ItemData(8678025, "Metroid", ItemClassification.progression_skip_balancing),
+    "Metroid":                  ItemData(8678025, "MacGuffin", ItemClassification.progression_skip_balancing),
     "The Galaxy is at Peace":   ItemData(8678026, "Victory", ItemClassification.progression)
 
 }
