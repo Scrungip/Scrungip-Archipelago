@@ -1,22 +1,22 @@
-from typing import Dict, List, Set, Tuple, TextIO, Union, Iterable, Optional, Any
+from typing import Dict
 from .items import item_table
 from .locations import get_location_datas, EventId
 from .regions import create_regions_and_locations
-from BaseClasses import Region, Entrance, Tutorial, Item, ItemClassification, MultiWorld
+from BaseClasses import Tutorial, Item
 from .options import AM2R_options
 from worlds.AutoWorld import World, WebWorld
 
 
 class AM2RWeb(WebWorld):
     theme = "partyTime"
-    setup = Tutorial(
+    tutorials = [Tutorial(
         "Multiworld Setup Tutorial",
         "A guide to setting up the Archipelago AM2R software on your computer. This guide covers single-player, multiworld, and related software.",
         "English",
         "setup_en.md",
         "setup/en",
         ["Zed"]
-        )
+    )]
 
 
 class AM2RWorld(World):
