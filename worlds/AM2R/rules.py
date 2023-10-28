@@ -35,11 +35,11 @@ class AM2RLogic:
 
         if MetroidsAreChecks == MetroidsAreChecks.option_exclude_A6 or MetroidsAreChecks.option_include_A6:
             return state.has("Metroid", self.player, amount) \
-                and state.has_all({"Speed Booster", "Ice Beam", "Super Missile", "Screw Attack"}, self.player) \
-                and self.AM2R_can_fly(state) and self.AM2R_can_bomb(state)
+                and state.has_all({"Speed Booster", "Ice Beam", "Super Missile"}, self.player) \
+                and self.AM2R_can_fly(state) and self.AM2R_can_bomb(state) and (state.has("Screw Attack", self.player) or state.has("Power Bomb", self.player))
         else:
-            return state.has_all({"Speed Booster", "Ice Beam", "Super Missile", "Screw Attack"}, self.player) \
-                and self.AM2R_can_fly(state) and self.AM2R_can_bomb(state)
+            return state.has_all({"Speed Booster", "Ice Beam", "Super Missile"}, self.player) \
+                and self.AM2R_can_fly(state) and self.AM2R_can_bomb(state) and (state.has("Screw Attack", self.player) or state.has("Power Bomb", self.player))
 
     def AM2R_can_lab(self, state: CollectionState) -> bool:
         amount = get_option_value(MultiWorld, self.player, "MetroidsRequired")
@@ -47,12 +47,12 @@ class AM2RLogic:
         if MetroidsAreChecks == MetroidsAreChecks.option_include_A6:
             amount += 5
             return state.has("Metroid", self.player, amount) \
-                and state.has_all({"Speed Booster", "Ice Beam", "Super Missile", "Screw Attack"}, self.player) \
-                and self.AM2R_can_fly(state) and self.AM2R_can_bomb(state)
+                and state.has_all({"Speed Booster", "Ice Beam", "Super Missile"}, self.player) \
+                and self.AM2R_can_fly(state) and self.AM2R_can_bomb(state) and (state.has("Screw Attack", self.player) or state.has("Power Bomb", self.player))
         elif MetroidsAreChecks == MetroidsAreChecks.option_exclude_A6:
             return state.has("Metroid", self.player, amount) \
-                and state.has_all({"Speed Booster", "Ice Beam", "Super Missile", "Screw Attack"}, self.player) \
-                and self.AM2R_can_fly(state) and self.AM2R_can_bomb(state)
+                and state.has_all({"Speed Booster", "Ice Beam", "Super Missile"}, self.player) \
+                and self.AM2R_can_fly(state) and self.AM2R_can_bomb(state) and (state.has("Screw Attack", self.player) or state.has("Power Bomb", self.player))
         else:
-            return state.has_all({"Speed Booster", "Ice Beam", "Super Missile", "Screw Attack"}, self.player) \
-                and self.AM2R_can_fly(state) and self.AM2R_can_bomb(state)
+            return state.has_all({"Speed Booster", "Ice Beam", "Super Missile"}, self.player) \
+                and self.AM2R_can_fly(state) and self.AM2R_can_bomb(state) and (state.has("Screw Attack", self.player) or state.has("Power Bomb", self.player))

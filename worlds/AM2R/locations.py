@@ -62,11 +62,11 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
         LocationData("Inner Hydro Station", "Hydro Station: Behind Hi Jump",  8680036, logic.AM2R_can_bomb),
 
         LocationData("Hydro Nest", "Hydro Nest: Below the Walkway",  8680037, logic.AM2R_can_bomb),  # Bomb
-        LocationData("Hydro Nest", "Hydro Nest: Speed Celling",  8680038, lambda state: state.has("Speed Booster", player)),  # speed
-        LocationData("Hydro Nest", "Hydro Nest: Behind the Wall",  8680039, lambda state: state.has("Power Bomb", player) and (state.has("Screw Attack", player) or state.has("Speed Booster", player))),  # PB + screw/speed
+        LocationData("Hydro Nest", "Hydro Nest: Speed Celling",  8680038, lambda state: state.has("Speed Booster", player) and state.has("Speed Booster", player)),  # speed
+        LocationData("Hydro Nest", "Hydro Nest: Behind the Wall",  8680039, lambda state: state.has("Power Bomb", player) and state.has("Screw Attack", player) and state.has("Speed Booster", player)),  # PB + screw/speed
 
         LocationData("Industrial Complex Nest", "Industrial Complex: Above Save",  8680040),
-        LocationData("Industrial Complex Nest", "Industrial Complex: EMP Room",  8680041, lambda state: state.has("Power Bomb", player) and state.has("Super Missile", player)),  # PB + super
+        LocationData("Industrial Complex Nest", "Industrial Complex: EMP Room",  8680041, lambda state: state.has("Power Bomb", player) and state.has("Super Missile", player) and state.can_reach("EMP", "Region", player)),  # PB + super
         LocationData("Industrial Complex Nest", "Industrial Complex Nest: Nest Shinespark",  8680042, lambda state: state.has("Super Missile", player) and state.has("Speed Booster", player) and logic.AM2R_can_schmove(state) and logic.AM2R_can_bomb(state)),  # super + schmove
 
         LocationData("Pre Industrial Complex", "Industrial Complex: In the Sand",  8680043),
@@ -156,7 +156,7 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
             LocationData("Industrial Complex Nest", "Industrial Nest: Mohwir", 8680115, lambda state: logic.AM2R_can_bomb(state) and (state.has("Speed Booster", player) or state.has("Super Missile", player))),
             LocationData("Industrial Complex Nest", "Industrial Nest: Chirn", 8680116, lambda state: logic.AM2R_can_bomb(state) and (state.has("Speed Booster", player) or state.has("Super Missile", player))),
             LocationData("Industrial Complex Nest", "Industrial Nest: BHHarbinger", 8680117, lambda state: logic.AM2R_can_bomb(state) and (state.has("Speed Booster", player) or state.has("Super Missile", player))),
-            LocationData("Industrial Complex Nest", "Industrial Nest: The Abyssal Creature", 8680118, lambda state: logic.AM2R_can_bomb(state) and state.has("Spider_Ball", player) and (state.has("Speed Booster", player) or state.has("Super Missile", player))),
+            LocationData("Industrial Complex Nest", "Industrial Nest: The Abyssal Creature", 8680118, lambda state: logic.AM2R_can_bomb(state) and state.has("Spider Ball", player) and (state.has("Speed Booster", player) or state.has("Super Missile", player))),
 
             LocationData("Pre Industrial Complex", "Industrial Complex: Sisyphus", 8680119, logic.AM2R_can_spider),  # Mimo
             LocationData("Pre Industrial Complex", "Industrial Complex: And then there\'s this Asshole", 8680120, logic.AM2R_can_spider),  # ANX
@@ -167,8 +167,8 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
             LocationData("GFS Thoth", "Dual Alphas: Marco", 8680123),  # Epsilon
             LocationData("GFS Thoth", "Dual Alphas: Polo", 8680124),  # Epsilon
 
-            LocationData("Mines", "Mines: Unga", 8680125, lambda state: state.has("Super Missile", player) and (logic.AM2R_can_fly(state) or state.has("Speed Booster", player))),
-            LocationData("Mines", "Mines: Gunga", 8680126, lambda state: state.has("Super Missile", player) and (logic.AM2R_can_fly(state) or state.has("Speed Booster", player))),
+            LocationData("Mines", "Mines: Unga", 8680125, lambda state: state.has("Super Missile", player) and (state.has("Space Jump", player) or state.has("Spider Ball", player))),
+            LocationData("Mines", "Mines: Gunga", 8680126, lambda state: state.has("Super Missile", player) and (state.has("Space Jump", player) or state.has("Spider Ball", player))),
 
             LocationData("The Tower", "The Tower: Patricia", 8680127, logic.AM2R_can_fly),  # Mahan
             LocationData("The Tower", "The Tower: Variable \"GUH\"", 8680128, logic.AM2R_can_fly),  # ANX

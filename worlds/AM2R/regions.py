@@ -175,15 +175,15 @@ def create_regions_and_locations(world: MultiWorld, player: int):
     connect(world, player, "Pipe Hell L", "Fast Travel", lambda state: state.has("Screw Attack", player)),
     connect(world, player, "Fast Travel", "Pipe Hell L", lambda state: state.has("Screw Attack", player)),
 
-    connect(world, player, "Fast Travel", "Gravity"),  # one way transition due to crumbles
+    connect(world, player, "Fast Travel", "Gravity", lambda state: state.has("Gravity Suit", player)),  # one way transition due to crumbles
 
     connect(world, player, "Fast Travel", "Underwater Distribution Center"),
     connect(world, player, "Underwater Distribution Center", "Fast Travel", lambda state: state.can_reach("Fast Travel", "Region", player)),
 
-    connect(world,player, "Gravity", "Pipe Hell Outside", lambda state: state.has("Gravity Suit", player) and state.has("Space Jump", player)),
-    connect(world,player, "Pipe Hell Outside", "Gravity"),
+    connect(world, player, "Gravity", "Pipe Hell Outside", lambda state: state.has("Gravity Suit", player) and state.has("Space Jump", player)),
+    connect(world, player, "Pipe Hell Outside", "Gravity"),
 
-    connect(world, player, "Pipe Hell Outside", "Pipe Hell R"),
+    connect(world, player, "Pipe Hell Outside", "Pipe Hell R", logic.AM2R_can_bomb),
     connect(world, player, "Pipe Hell R", "Pipe Hell Outside", lambda state: state.can_reach("Pipe Hell Outside", "Region", player)),
 
     connect(world, player, "Underwater Distribution Center", "Underwater Distro Connection", lambda state: state.has("Ice Beam", player) or (state.has("Gravity Suit", player) and state.has("Speed Booster", player))),
