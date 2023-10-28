@@ -77,7 +77,7 @@ def create_regions_and_locations(world: MultiWorld, player: int):
     connect(world, player, "Main Caves", "Hydro Station"),
     connect(world, player, "Hydro Station", "Main Caves"),
 
-    connect(world, player, "Main Caves", "Mines"),
+    connect(world, player, "Main Caves", "Mines", lambda state: state.has("Super Missile", player)),
     connect(world, player, "Mines", "Main Caves"),
 
     connect(world, player, "Main Caves", "Industrial Complex Nest"),
