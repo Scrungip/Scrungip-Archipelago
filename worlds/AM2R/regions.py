@@ -180,7 +180,7 @@ def create_regions_and_locations(world: MultiWorld, player: int):
     connect(world, player, "Fast Travel", "Underwater Distribution Center"),
     connect(world, player, "Underwater Distribution Center", "Fast Travel", lambda state: state.can_reach("Fast Travel", "Region", player)),
 
-    connect(world,player, "Gravity", "Pipe Hell Outside", lambda state: state.has("Gravity Suit", player) and state.has("Spcae Jump", player)),
+    connect(world,player, "Gravity", "Pipe Hell Outside", lambda state: state.has("Gravity Suit", player) and state.has("Space Jump", player)),
     connect(world,player, "Pipe Hell Outside", "Gravity"),
 
     connect(world, player, "Pipe Hell Outside", "Pipe Hell R"),
