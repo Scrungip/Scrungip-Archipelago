@@ -139,10 +139,12 @@ def create_regions_and_locations(world: MultiWorld, player: int):
     # tester
     connect(world, player, "The Tower", "Tester Lower", logic.AM2R_can_bomb),
     connect(world, player, "The Tower", "Tester Upper", logic.AM2R_can_bomb),
-    connect(world, player, "Tester Lower", "Tester Upper"),
-    connect(world, player, "Tester Upper", "Tester Lower"),
-    connect(world, player, "Tester Lower", "The Tower"),
-    connect(world, player, "Tester Upper", "The Tower"),
+    connect(world, player, "Tester Lower", "Tester"),
+    connect(world, player, "Tester", "Tester Lower"),
+    connect(world, player, "Tester", "Tester Upper"),
+    connect(world, player, "Tester Upper", "Tester"),
+    connect(world, player, "Tester Lower", "The Tower", logic.AM2R_can_bomb),
+    connect(world, player, "Tester Upper", "The Tower", logic.AM2R_can_bomb),
     # A5
     connect(world, player, "Underwater Distribution Center", "EMP"),
     connect(world, player, "EMP", "Underwater Distribution Center"),

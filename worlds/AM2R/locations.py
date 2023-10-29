@@ -1,7 +1,7 @@
 from typing import List, Tuple, Optional, Callable, NamedTuple
 from BaseClasses import MultiWorld, CollectionState
 from .rules import AM2RLogic
-from .options import MetroidsAreChecks
+from .options import MetroidsAreChecks, is_option_enabled
 
 
 EventId: Optional[int] = None
@@ -130,7 +130,7 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
         LocationData("Research Station", "The Last Metroid is in Captivity", EventId),
     ]
 
-    if MetroidsAreChecks == MetroidsAreChecks.option_exclude_A6 or MetroidsAreChecks.option_include_A6:
+    if not world or is_option_enabled(world, player, "MetroidsAreChecks"):
         location_table += (
             #metroids
             # todo remove or place locked items below when option not enabled
