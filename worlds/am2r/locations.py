@@ -111,10 +111,10 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
         LocationData("Underwater Distro Connection", "Distribution Center: Spiderball Spike \"Maze\"",  8680074, lambda state: state.has("Spider Ball", player)),  # spiderball
         LocationData("Underwater Distro Connection", "Distribution Center: Before Spikey Tunnel",  8680075),
         LocationData("Underwater Distro Connection", "Distribution Center: Spikey Tunnel Shinespark",  8680076, lambda state: state.has("Gravity Suit", player) and state.has("Speed Booster", player)),  # grav + speed
-        LocationData("Underwater Distro Connection", "Distribution Center: After Spikey Tunnel",  8680078, lambda state: state.has("Power Bomb", player) and state.has("Speed Booster", player) and state.has("Gravity Suit", player) and state.has("Space_Jump", player)),  # speed + grav + space + pb
+        LocationData("Underwater Distro Connection", "Distribution Center: After Spikey Tunnel",  8680078, lambda state: state.has("Power Bomb", player) and state.has("Speed Booster", player) and state.has("Gravity Suit", player) and state.has("Space Jump", player)),  # speed + grav + space + pb
 
         LocationData("Pipe Hell R", "Distribution Center: Screw Attack", 8680080),
-        LocationData("Pipe Hell Outside", "Distribution Center: Outside after Gravity", 8680081, lambda state: state.has("Power Bomb", player) and state.has("Space_Jump", player) and state.has("Gravity Suit", player)),  # pb + space + grav
+        LocationData("Pipe Hell Outside", "Distribution Center: Outside after Gravity", 8680081, lambda state: state.has("Power Bomb", player) and state.has("Space Jump", player) and state.has("Gravity Suit", player)),  # pb + space + grav
         LocationData("Pipe Hell R", "Distribution Center: Before Underwater Pipe", 8680082, lambda state: state.has("Power Bomb", player) and state.has("Speed Booster", player)),  # pb + speed
 
         LocationData("Gravity", "Distribution Center: Before Gravity", 8680083, lambda state: (state.has("Bombs", player) and (state.has("ChargeBeam", player) or state.has("Gravity Suit", player))) or state.has("Power Bomb", player)),  # bomb + charge/gravity / PB
@@ -187,10 +187,7 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
 
             LocationData("Underwater Distro Connection", "Underwater: Gamma Bros Mario", 8680139),  # Lucina
             LocationData("Underwater Distro Connection", "Underwater: Gamma Bros Luigi", 8680140),  # Lucina
-        )
 
-    if MetroidsAreChecks == MetroidsAreChecks.option_include_A6:
-        location_table += (
             LocationData("Deep Caves", "Deep Caves: Little Bro", 8680141),
             LocationData("Deep Caves", "Deep Caves: Big Sis", 8680142),
             LocationData("Omega Nest", "Omega Nest: SA-X Queen Lucina", 8680143),
