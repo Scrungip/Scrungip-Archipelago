@@ -108,7 +108,7 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
 
         LocationData("EMP", "Distribution Center: After EMP Activation",  8680073, lambda state: state.has("Screw Attack", player)),  # screw
 
-        LocationData("Underwater Distro Connection", "Distribution Center: Spiderball Spike \"Maze\"",  8680074, lambda state: state.has("Spider_Ball", player)),  # spiderball
+        LocationData("Underwater Distro Connection", "Distribution Center: Spiderball Spike \"Maze\"",  8680074, lambda state: state.has("Spider Ball", player)),  # spiderball
         LocationData("Underwater Distro Connection", "Distribution Center: Before Spikey Tunnel",  8680075),
         LocationData("Underwater Distro Connection", "Distribution Center: Spikey Tunnel Shinespark",  8680076, lambda state: state.has("Gravity Suit", player) and state.has("Speed Booster", player)),  # grav + speed
         LocationData("Underwater Distro Connection", "Distribution Center: After Spikey Tunnel",  8680078, lambda state: state.has("Power Bomb", player) and state.has("Speed Booster", player) and state.has("Gravity Suit", player) and state.has("Space_Jump", player)),  # speed + grav + space + pb
