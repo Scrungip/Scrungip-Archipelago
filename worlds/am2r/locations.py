@@ -113,7 +113,7 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
         LocationData("Underwater Distro Connection", "Distribution Center: Spikey Tunnel Shinespark",  8680076, lambda state: state.has("Gravity Suit", player) and state.has("Speed Booster", player)),  # grav + speed
         LocationData("Underwater Distro Connection", "Distribution Center: After Spikey Tunnel",  8680078, lambda state: state.has("Power Bomb", player) and state.has("Speed Booster", player) and state.has("Gravity Suit", player) and state.has("Space Jump", player)),  # speed + grav + space + pb
 
-        LocationData("Pipe Hell R", "Distribution Center: Screw Attack", 8680080),
+        LocationData("Screw Attack", "Distribution Center: Screw Attack", 8680080),
         LocationData("Pipe Hell Outside", "Distribution Center: Outside after Gravity", 8680081, lambda state: state.has("Power Bomb", player) and state.has("Space Jump", player) and state.has("Gravity Suit", player)),  # pb + space + grav
         LocationData("Pipe Hell R", "Distribution Center: Before Underwater Pipe", 8680082, lambda state: state.has("Power Bomb", player) and state.has("Speed Booster", player)),  # pb + speed
 
