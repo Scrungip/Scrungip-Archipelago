@@ -87,7 +87,7 @@ def create_regions_and_locations(world: MultiWorld, player: int):
     connect(world, player, "Main Caves", "The Tower"),
     connect(world, player, "The Tower", "Main Caves"),
 
-    connect(world, player, "Main Caves", "Underwater Distribution Center", lambda state: state.has("Power Bomb", player) or state.has("Super Missile", player)),
+    connect(world, player, "Main Caves", "Underwater Distribution Center", lambda state: (state.has("Power Bomb", player) or state.has("Super Missile", player)) and state.has("Ice Beam", player)),  # when s&q is fixed, remove ice beam
     connect(world, player, "Underwater Distribution Center", "Main Caves", lambda state: state.has("Ice Beam", player)),
 
     connect(world, player, "Main Caves", "Deep Caves", logic.AM2R_can_down),
@@ -147,8 +147,8 @@ def create_regions_and_locations(world: MultiWorld, player: int):
     connect(world, player, "Tester Lower", "The Tower", logic.AM2R_can_bomb),
     connect(world, player, "Tester Upper", "The Tower", logic.AM2R_can_bomb),
     # A5
-    connect(world, player, "Underwater Distribution Center", "EMP"),
-    connect(world, player, "EMP", "Underwater Distribution Center"),
+    connect(world, player, "Underwater Distribution Center", "EMP", logic.AM2R_can_bomb),
+    connect(world, player, "EMP", "Underwater Distribution Center", logic.AM2R_can_bomb),
 
     connect(world, player, "Underwater Distribution Center", "Serris"),
     connect(world, player, "Serris", "Underwater Distribution Center", lambda state: state.has("Gravity Suit", player)),
