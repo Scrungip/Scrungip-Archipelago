@@ -88,7 +88,7 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
         LocationData("GFS Thoth", "GFS Thoth: Research Camp",  8680056),
         LocationData("GFS Thoth", "GFS Thoth: Hornoad room",  8680057, lambda state: state.has("Power Bomb", player)),
         LocationData("GFS Thoth", "GFS Thoth: Outside the Front of the Ship",  8680058, lambda state: state.has("Power Bomb", player)),
-        LocationData("GFS Thoth", "GFS Thoth: Genesis",  8680059, lambda state: state.has("Power Bomb", player)),
+        LocationData("Genesis", "Genesis: Boss",  8680059, lambda state: state.has("Power Bomb", player)),
 
         LocationData("The Tower", "The Tower: Beside Hydro Pipe",  8680060, lambda state: state.has("Screw Attack", player)),
         LocationData("The Tower", "The Tower: Right Side of Tower",  8680061),
