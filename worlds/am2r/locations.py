@@ -20,7 +20,7 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
     location_table: List[LocationData] = [
         LocationData("Main Caves", "Main Caves: Vertical Spike Room Upper",  8680000, lambda state: logic.AM2R_can_fly(state) or state.has("Spider Ball", player) and state.has("Bombs", player)),  # spider + bomb
         LocationData("Main Caves", "Main Caves: Vertical Spike Room Lower",  8680001, logic.AM2R_can_bomb),  # bomb
-        LocationData("Main Caves", "Main Caves: Crumble Spike Room",  8680002, logic.AM2R_can_jump),  # jump
+        LocationData("Main Caves", "Main Caves: Crumble Spike Room",  8680002, lambda state: state.has_any({'Hi Jump', 'Space Jump'}, player) and logic.AM2R_can_bomb(state)),  # jump. just jump. ibj and dbj can come later in advanced logic frogtroll
         LocationData("Main Caves", "Main Caves: Maze",  8680003),
         LocationData("Main Caves", "Main Caves: Shinespark Before the drop",  8680004, lambda state: state.has("Speed Booster", player)),  # speed
         LocationData("Main Caves", "Main Caves: Shinespark After the drop",  8680005, lambda state: state.has("Speed Booster", player)),  # speed
@@ -46,7 +46,7 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
         LocationData("Hydro Station", "Hydro Station: Cliff",  8680022, logic.AM2R_can_fly),
         LocationData("Hydro Station", "Hydro Station: Morph Tunnel",  8680023),
         LocationData("Hydro Station", "Hydro Station: Turbine Room",  8680024, logic.AM2R_can_bomb),  # bomb
-        LocationData("Hydro Station", "Hydro Station: Not so Secret Tunel",  8680025, logic.AM2R_can_schmove),  # schmove
+        LocationData("Hydro Station", "Hydro Station: Not so Secret Tunnel",  8680025, logic.AM2R_can_schmove),  # schmove
         LocationData("Hydro Station", "Hydro Station: Water puzzle Beside Varia",  8680026, logic.AM2R_can_bomb),  # bomb
         LocationData("Hydro Station", "Hydro Station: Varia Suit",  8680027, logic.AM2R_can_bomb),  # bomb
         LocationData("Hydro Station", "Hydro Station: EMP room",  8680028, lambda state: state.has("Super Missile", player) and state.has("Speed Booster", player)),  # super + speed
@@ -108,12 +108,12 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
 
         LocationData("EMP", "Distribution Center: After EMP Activation",  8680073, lambda state: state.has("Screw Attack", player)),  # screw
 
-        LocationData("Underwater Distro Connection", "Distribution Center: Spiderball Spike \"Maze\"",  8680074, lambda state: state.has("Spider Ball", player)),  # spiderball
+        LocationData("Underwater Distro Connection", "Distribution Center: Spiderball Spike \"Maze\"",  8680074, lambda state: state.has("Spider Ball", player) and state.has("Gravity Suit", player)),  # spiderball underwater
         LocationData("Underwater Distro Connection", "Distribution Center: Before Spikey Tunnel",  8680075),
         LocationData("Underwater Distro Connection", "Distribution Center: Spikey Tunnel Shinespark",  8680076, lambda state: state.has("Gravity Suit", player) and state.has("Speed Booster", player)),  # grav + speed
         LocationData("Underwater Distro Connection", "Distribution Center: After Spikey Tunnel",  8680078, lambda state: state.has("Power Bomb", player) and state.has("Speed Booster", player) and state.has("Gravity Suit", player) and state.has("Space Jump", player)),  # speed + grav + space + pb
 
-        LocationData("Pipe Hell R", "Distribution Center: Screw Attack", 8680080),
+        LocationData("Screw Attack", "Distribution Center: Screw Attack", 8680080),
         LocationData("Pipe Hell Outside", "Distribution Center: Outside after Gravity", 8680081, lambda state: state.has("Power Bomb", player) and state.has("Space Jump", player) and state.has("Gravity Suit", player)),  # pb + space + grav
         LocationData("Pipe Hell R", "Distribution Center: Before Underwater Pipe", 8680082, lambda state: state.has("Power Bomb", player) and state.has("Speed Booster", player)),  # pb + speed
 
