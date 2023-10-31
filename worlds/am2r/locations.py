@@ -18,7 +18,7 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
     logic = AM2RLogic(world, player)
 
     location_table: List[LocationData] = [
-        LocationData("Main Caves", "Main Caves: Vertical Spike Room Upper",  8680000, lambda state: logic.AM2R_can_fly(state) or state.has("Spider Ball", player) and state.has("Bombs", player)),  # spider + bomb
+        LocationData("Main Caves", "Main Caves: Vertical Spike Room Upper",  8680000, lambda state: logic.AM2R_can_fly(state) and logic.AM2R_can_bomb(state)),  # spider + bomb
         LocationData("Main Caves", "Main Caves: Vertical Spike Room Lower",  8680001, logic.AM2R_can_bomb),  # bomb
         LocationData("Main Caves", "Main Caves: Crumble Spike Room",  8680002, lambda state: state.has_any({'Hi Jump', 'Space Jump'}, player) and logic.AM2R_can_bomb(state)),  # jump. just jump. ibj and dbj can come later in advanced logic frogtroll
         LocationData("Main Caves", "Main Caves: Maze",  8680003),
