@@ -128,71 +128,66 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
         LocationData("Deep Caves", "Deep Caves: After Omega",  8680088),
 
         LocationData("Research Station", "The Last Metroid is in Captivity", EventId),
+
+        LocationData("First Alpha", "The Forgotten Alpha", 8680100),
+
+        LocationData("Golden Temple", "Golden Temple: Metroid above Spider Ball", 8680101, logic.AM2R_can_spider),
+        LocationData("Golden Temple Nest", "Golden Temple Nest: Moe", 8680102, logic.AM2R_can_bomb),  # Loj
+        LocationData("Golden Temple Nest", "Golden Temple Nest: Larry", 8680103, logic.AM2R_can_bomb),    # Loj
+        LocationData("Golden Temple Nest", "Golden Temple Nest: Curly", 8680104, logic.AM2R_can_bomb),    # Loj
+
+        LocationData("Main Caves", "Main Caves: Freddy Fazbear", 8680105),  # Epsilon
+        LocationData("Hydro Station", "Hydro Station: Turbine Terror", 8680106),  # Xander
+        LocationData("Hydro Station", "Hydro Station: The Lookout", 8680107, logic.AM2R_can_schmove),  # Xander
+        LocationData("Hydro Station", "Hydro Station: Recent Guardian", 8680108),  # ANX
+
+        LocationData("Hydro Nest", "Hydro Nest: Spiderman Decent", 8680109),
+        LocationData("Hydro Nest", "Hydro Nest: Carnage Awful", 8680110),
+        LocationData("Hydro Nest", "Hydro Nest: Venom Awesome", 8680111),
+        LocationData("Hydro Nest", "Hydro Nest: Something More Something Awesome", 8680112),
+
+        LocationData("Industrial Complex Nest", "Industrial Nest: Mimolette", 8680113, lambda state: state.has("Speed Booster", player) or state.has("Super Missile", player)),
+        LocationData("Industrial Complex Nest", "Industrial Nest: The Big Cheese", 8680114, lambda state: state.has("Speed Booster", player) or state.has("Super Missile", player)),
+        LocationData("Industrial Complex Nest", "Industrial Nest: Mohwir", 8680115, lambda state: logic.AM2R_can_bomb(state) and (state.has("Speed Booster", player) or state.has("Super Missile", player))),
+        LocationData("Industrial Complex Nest", "Industrial Nest: Chirn", 8680116, lambda state: logic.AM2R_can_bomb(state) and (state.has("Speed Booster", player) or state.has("Super Missile", player))),
+        LocationData("Industrial Complex Nest", "Industrial Nest: BHHarbinger", 8680117, lambda state: logic.AM2R_can_bomb(state) and (state.has("Speed Booster", player) or state.has("Super Missile", player))),
+        LocationData("Industrial Complex Nest", "Industrial Nest: The Abyssal Creature", 8680118, lambda state: logic.AM2R_can_bomb(state) and state.has("Spider Ball", player) and (state.has("Speed Booster", player) or state.has("Super Missile", player))),
+
+        LocationData("Pre Industrial Complex", "Industrial Complex: Sisyphus", 8680119, logic.AM2R_can_spider),  # Mimo
+        LocationData("Pre Industrial Complex", "Industrial Complex: And then there\'s this Asshole", 8680120, logic.AM2R_can_spider),  # ANX
+
+        LocationData("Industrial Complex", "Inside Industrial: Guardian of Doom Treadmill", 8680121, lambda state: state.has("Speed Booster", player) and logic.AM2R_can_bomb(state)),
+        LocationData("Industrial Complex", "Inside Industrial: Rawsome1234 by the Lava", 8680122, lambda state: state.has("Speed Booster", player) and logic.AM2R_can_bomb(state)),
+
+        LocationData("GFS Thoth", "Dual Alphas: Marco", 8680123),  # Epsilon
+        LocationData("GFS Thoth", "Dual Alphas: Polo", 8680124),  # Epsilon
+
+        LocationData("Mines", "Mines: Unga", 8680125, lambda state: state.has("Super Missile", player) and (state.has("Space Jump", player) or state.has("Spider Ball", player))),
+        LocationData("Mines", "Mines: Gunga", 8680126, lambda state: state.has("Super Missile", player) and (state.has("Space Jump", player) or state.has("Spider Ball", player))),
+
+        LocationData("The Tower", "The Tower: Patricia", 8680127, logic.AM2R_can_fly),  # Mahan
+        LocationData("The Tower", "The Tower: Variable \"GUH\"", 8680128, logic.AM2R_can_fly),  # ANX
+        LocationData("The Tower", "Ruler of The Tower: Slagathor", 8680129, logic.AM2R_can_schmove),  # Rawsome
+        LocationData("The Tower", "The Tower: Anakin", 8680130, logic.AM2R_can_bomb),  # Xander
+        LocationData("The Tower", "The Tower: Mr.Sandman", 8680131, logic.AM2R_can_fly),  # Xander
+        LocationData("The Tower", "The Tower: Xander", 8680132, lambda state: state.has("Space Jump", player)),
+
+        LocationData("EMP", "EMP: Sir Zeta Commander of the Alpha Squadron", 8680133, logic.AM2R_can_bomb),  # Lucina
+
+        LocationData("Pipe Hell R", "Alpha Squadron: Timmy", 8680134),  # Lucina
+        LocationData("Pipe Hell R", "Alpha Squadron: Tommy", 8680135),  # Lucina
+        LocationData("Pipe Hell R", "Alpha Squadron: Terry", 8680136),  # Lucina
+        LocationData("Pipe Hell R", "Alpha Squadron: Telly", 8680137),  # Lucina
+        LocationData("Pipe Hell R", "Alpha Squadron: Martin", 8680138),
+
+        LocationData("Underwater Distro Connection", "Underwater: Gamma Bros Mario", 8680139),  # Lucina
+        LocationData("Underwater Distro Connection", "Underwater: Gamma Bros Luigi", 8680140),  # Lucina
+
+        LocationData("Deep Caves", "Deep Caves: Little Bro", 8680141),
+        LocationData("Deep Caves", "Deep Caves: Big Sis", 8680142),
+        LocationData("Omega Nest", "Omega Nest: SA-X Queen Lucina", 8680143),
+        LocationData("Omega Nest", "Omega Nest: Epsilon", 8680144),
+        LocationData("Omega Nest", "Omega Nest: Druid", 8680145),
     ]
-
-    if not world or is_option_enabled(world, player, "MetroidsAreChecks"):
-        location_table += (
-            #metroids
-            # todo remove or place locked items below when option not enabled
-            LocationData("First Alpha", "The Forgotten Alpha", 8680100),
-
-            LocationData("Golden Temple", "Golden Temple: Metroid above Spider Ball", 8680101, logic.AM2R_can_spider),
-            LocationData("Golden Temple Nest", "Golden Temple Nest: Moe", 8680102, logic.AM2R_can_bomb),  # Loj
-            LocationData("Golden Temple Nest", "Golden Temple Nest: Larry", 8680103, logic.AM2R_can_bomb),    # Loj
-            LocationData("Golden Temple Nest", "Golden Temple Nest: Curly", 8680104, logic.AM2R_can_bomb),    # Loj
-
-            LocationData("Main Caves", "Main Caves: Freddy Fazbear", 8680105),  # Epsilon
-            LocationData("Hydro Station", "Hydro Station: Turbine Terror", 8680106),  # Xander
-            LocationData("Hydro Station", "Hydro Station: The Lookout", 8680107, logic.AM2R_can_schmove),  # Xander
-            LocationData("Hydro Station", "Hydro Station: Recent Guardian", 8680108),  # ANX
-
-            LocationData("Hydro Nest", "Hydro Nest: Spiderman Decent", 8680109),
-            LocationData("Hydro Nest", "Hydro Nest: Carnage Awful", 8680110),
-            LocationData("Hydro Nest", "Hydro Nest: Venom Awesome", 8680111),
-            LocationData("Hydro Nest", "Hydro Nest: Something More Something Awesome", 8680112),
-
-            LocationData("Industrial Complex Nest", "Industrial Nest: Mimolette", 8680113, lambda state: state.has("Speed Booster", player) or state.has("Super Missile", player)),
-            LocationData("Industrial Complex Nest", "Industrial Nest: The Big Cheese", 8680114, lambda state: state.has("Speed Booster", player) or state.has("Super Missile", player)),
-            LocationData("Industrial Complex Nest", "Industrial Nest: Mohwir", 8680115, lambda state: logic.AM2R_can_bomb(state) and (state.has("Speed Booster", player) or state.has("Super Missile", player))),
-            LocationData("Industrial Complex Nest", "Industrial Nest: Chirn", 8680116, lambda state: logic.AM2R_can_bomb(state) and (state.has("Speed Booster", player) or state.has("Super Missile", player))),
-            LocationData("Industrial Complex Nest", "Industrial Nest: BHHarbinger", 8680117, lambda state: logic.AM2R_can_bomb(state) and (state.has("Speed Booster", player) or state.has("Super Missile", player))),
-            LocationData("Industrial Complex Nest", "Industrial Nest: The Abyssal Creature", 8680118, lambda state: logic.AM2R_can_bomb(state) and state.has("Spider Ball", player) and (state.has("Speed Booster", player) or state.has("Super Missile", player))),
-
-            LocationData("Pre Industrial Complex", "Industrial Complex: Sisyphus", 8680119, logic.AM2R_can_spider),  # Mimo
-            LocationData("Pre Industrial Complex", "Industrial Complex: And then there\'s this Asshole", 8680120, logic.AM2R_can_spider),  # ANX
-
-            LocationData("Industrial Complex", "Inside Industrial: Guardian of Doom Treadmill", 8680121, lambda state: state.has("Speed Booster", player) and logic.AM2R_can_bomb(state)),
-            LocationData("Industrial Complex", "Inside Industrial: Rawsome1234 by the Lava", 8680122, lambda state: state.has("Speed Booster", player) and logic.AM2R_can_bomb(state)),
-
-            LocationData("GFS Thoth", "Dual Alphas: Marco", 8680123),  # Epsilon
-            LocationData("GFS Thoth", "Dual Alphas: Polo", 8680124),  # Epsilon
-
-            LocationData("Mines", "Mines: Unga", 8680125, lambda state: state.has("Super Missile", player) and (state.has("Space Jump", player) or state.has("Spider Ball", player))),
-            LocationData("Mines", "Mines: Gunga", 8680126, lambda state: state.has("Super Missile", player) and (state.has("Space Jump", player) or state.has("Spider Ball", player))),
-
-            LocationData("The Tower", "The Tower: Patricia", 8680127, logic.AM2R_can_fly),  # Mahan
-            LocationData("The Tower", "The Tower: Variable \"GUH\"", 8680128, logic.AM2R_can_fly),  # ANX
-            LocationData("The Tower", "Ruler of The Tower: Slagathor", 8680129, logic.AM2R_can_schmove),  # Rawsome
-            LocationData("The Tower", "The Tower: Anakin", 8680130, logic.AM2R_can_bomb),  # Xander
-            LocationData("The Tower", "The Tower: Mr.Sandman", 8680131, logic.AM2R_can_fly),  # Xander
-            LocationData("The Tower", "The Tower: Xander", 8680132, lambda state: state.has("Space Jump", player)),
-
-            LocationData("EMP", "EMP: Sir Zeta Commander of the Alpha Squadron", 8680133, logic.AM2R_can_bomb),  # Lucina
-
-            LocationData("Pipe Hell R", "Alpha Squadron: Timmy", 8680134),  # Lucina
-            LocationData("Pipe Hell R", "Alpha Squadron: Tommy", 8680135),  # Lucina
-            LocationData("Pipe Hell R", "Alpha Squadron: Terry", 8680136),  # Lucina
-            LocationData("Pipe Hell R", "Alpha Squadron: Telly", 8680137),  # Lucina
-            LocationData("Pipe Hell R", "Alpha Squadron: Martin", 8680138),
-
-            LocationData("Underwater Distro Connection", "Underwater: Gamma Bros Mario", 8680139),  # Lucina
-            LocationData("Underwater Distro Connection", "Underwater: Gamma Bros Luigi", 8680140),  # Lucina
-
-            LocationData("Deep Caves", "Deep Caves: Little Bro", 8680141),
-            LocationData("Deep Caves", "Deep Caves: Big Sis", 8680142),
-            LocationData("Omega Nest", "Omega Nest: SA-X Queen Lucina", 8680143),
-            LocationData("Omega Nest", "Omega Nest: Epsilon", 8680144),
-            LocationData("Omega Nest", "Omega Nest: Druid", 8680145),
-        )
 
     return tuple(location_table)

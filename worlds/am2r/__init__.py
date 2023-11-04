@@ -3,7 +3,7 @@ from .items import item_table
 from .locations import get_location_datas, EventId
 from .regions import create_regions_and_locations
 from BaseClasses import Tutorial, Item
-from .options import AM2R_options
+from .options import AM2R_options, MetroidsAreChecks
 from worlds.AutoWorld import World, WebWorld
 
 
@@ -45,6 +45,55 @@ class AM2RWorld(World):
         return items.create_item(self.player, name)
 
     def create_items(self) -> None:
+        if self.options.MetroidsAreChecks != MetroidsAreChecks.option_include_A6:
+            self.multiworld.get_location("Deep Caves: Little Bro", self.player).place_locked_item(self.create_item("Metroid"))
+            self.multiworld.get_location("Deep Caves: Big Sis", self.player).place_locked_item(self.create_item("Metroid"))
+            self.multiworld.get_location("Omega Nest: SA-X Queen Lucina", self.player).place_locked_item(self.create_item("Metroid"))
+            self.multiworld.get_location("Omega Nest: Epsilon", self.player).place_locked_item(self.create_item("Metroid"))
+            self.multiworld.get_location("Omega Nest: Druid", self.player).place_locked_item(self.create_item("Metroid"))
+            if self.options.MetroidsAreChecks == MetroidsAreChecks.option_disabled:
+                self.multiworld.get_location("The Forgotten Alpha", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Golden Temple: Metroid above Spider Ball", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Golden Temple Nest: Moe", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Golden Temple Nest: Larry", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Golden Temple Nest: Curly", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Main Caves: Freddy Fazbear", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Hydro Station: Turbine Terror", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Hydro Station: The Lookout", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Hydro Station: Recent Guardian", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Hydro Nest: Spiderman Decent", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Hydro Nest: Carnage Awful", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Hydro Nest: Venom Awesome", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Hydro Nest: Something More Something Awesome",self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Industrial Nest: Mimolette", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Industrial Nest: The Big Cheese", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Industrial Nest: Mohwir", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Industrial Nest: Chirn", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Industrial Nest: BHHarbinger", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Industrial Nest: The Abyssal Creature", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Industrial Complex: Sisyphus", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Industrial Complex: And then there\'s this Asshole",self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Inside Industrial: Guardian of Doom Treadmill",self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Inside Industrial: Rawsome1234 by the Lava",self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Dual Alphas: Marco", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Dual Alphas: Polo", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Mines: Unga", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Mines: Gunga", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("The Tower: Patricia", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("The Tower: Variable \"GUH\"", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Ruler of The Tower: Slagathor", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("The Tower: Anakin", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("The Tower: Mr.Sandman", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("The Tower: Xander", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("EMP: Sir Zeta Commander of the Alpha Squadron", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Alpha Squadron: Timmy", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Alpha Squadron: Tommy", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Alpha Squadron: Terry", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Alpha Squadron: Telly", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Alpha Squadron: Martin", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Underwater: Gamma Bros Mario", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Underwater: Gamma Bros Luigi", self.player).place_locked_item(self.create_item("Metroid"))
+
         self.multiworld.get_location("The Last Metroid is in Captivity", self.player).place_locked_item(self.create_item("The Galaxy is at Peace"))
         items.create_all_items(self.multiworld, self.player)
 
