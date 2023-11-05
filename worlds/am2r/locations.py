@@ -122,7 +122,7 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
 
         LocationData("Ice Beam", "Serris: Ice Beam", 8680085, lambda state: state.has("Ice Beam", player) and (state.has("Super Missile", player) or state.has("Speed Booster", player))),  # speed / Supers
 
-        LocationData("Deep Caves", "Deep Caves: Ball Spark",  8680086, logic.AM2R_has_ballspark),
+        LocationData("Deep Caves", "Deep Caves: Ball Spark",  8680086, lambda state: state.has("Gravity Suit", player) and logic.AM2R_has_ballspark(state)),
         LocationData("Deep Caves", "Deep Caves: Behind the Bomb Block",  8680087, logic.AM2R_can_bomb),
 
         LocationData("Deep Caves", "Deep Caves: After Omega",  8680088),
