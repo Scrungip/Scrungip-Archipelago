@@ -141,7 +141,7 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
         LocationData("Hydro Station", "Hydro Station: The Lookout", 8680107, logic.AM2R_can_schmove),  # Xander
         LocationData("Hydro Station", "Hydro Station: Recent Guardian", 8680108),  # ANX
 
-        LocationData("Hydro Nest", "Hydro Nest: Spiderman Decent", 8680109),
+        LocationData("Hydro Nest", "Hydro Nest: EnderMahan", 8680109),
         LocationData("Hydro Nest", "Hydro Nest: Carnage Awful", 8680110),
         LocationData("Hydro Nest", "Hydro Nest: Venom Awesome", 8680111),
         LocationData("Hydro Nest", "Hydro Nest: Something More Something Awesome", 8680112),
