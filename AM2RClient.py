@@ -63,23 +63,30 @@ class AM2RContext(CommonContext):
         self.ui = AM2RManager(self)
         self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
 
+    def on_package(self, cmd: str, args: dict):
+        pass
+
+def get_payload(ctx: AM2RContext):
+    testlist = [800, 500, 300]
+    return json.dumps({
+        'items': testlist
+    })
+
 async def am2r_sync_task(ctx: AM2RContext):
     logger.info("Starting AM2R connector, use /am2r for status information.")
     while not ctx.exit_event.is_set():
         error_status = None
         if ctx.am2r_streams:
             (reader, writer) = ctx.am2r_streams
-            msg = "HelloWorld".encode()
+            msg = get_payload(ctx).encode()
             writer.write(msg)
             writer.write(b'\n')
             try:
-                print("Hi")
                 await asyncio.wait_for(writer.drain(), timeout=1.5)
-                print("Ho")
                 try:
                     data = await asyncio.wait_for(reader.readline(), timeout=5)
-                    data_decoded = data.decode()
-                    logger.info(data_decoded)
+                    data_decoded = json.loads(data.decode())
+                    logger.info(data_decoded["Name"])
                 except asyncio.TimeoutError:
                     logger.debug("Read Timed Out, Reconnecting")
                     error_status = CONNECTION_TIMING_OUT_STATUS
@@ -113,7 +120,7 @@ async def am2r_sync_task(ctx: AM2RContext):
         else:
             try:
                 logger.debug("Attempting to connect to AM2R")
-                ctx.am2r_streams = await asyncio.wait_for(asyncio.open_connection("localhost", 64197), timeout=10)
+                ctx.am2r_streams = await asyncio.wait_for(asyncio.open_connection("127.0.0.1", 64197), timeout=10)
                 ctx.am2r_status = CONNECTION_TENTATIVE_STATUS
             except TimeoutError:
                 logger.debug("Connection Timed Out, Trying Again")
