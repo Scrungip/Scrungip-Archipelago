@@ -81,8 +81,8 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
 
         LocationData("Industrial Complex", "Industrial Complex: Conveyor Belt Room",  8680051, lambda state: state.has("Speed Booster", player)),
         LocationData("Industrial Complex", "Industrial Complex: Doom Treadmill",  8680052, lambda state: state.has("Speed Booster", player) and logic.AM2R_can_bomb(state)),
-        LocationData("Industrial Complex", "Industrial Complex: Robot room in the Wall",  8680053, lambda state: state.has("Speed Booster", player)),
-        LocationData("Industrial Complex", "Industrial Complex: Robot room in the Floor", 8680054, lambda state: state.has("Super Missile", player) and state.has("Speed Booster", player)),
+        LocationData("Industrial Complex", "Industrial Complex: By the Not Ramp of Doom",  8680053, lambda state: state.has("Speed Booster", player)),
+        LocationData("Industrial Complex", "Industrial Complex: In the Not Ramp of Doom", 8680054, lambda state: state.has("Super Missile", player) and state.has("Speed Booster", player)),
         LocationData("Industrial Complex", "Industrial Complex: First Supers",  8680055, lambda state: state.has("Super Missile", player) and state.has("Speed Booster", player)),
 
         LocationData("GFS Thoth", "GFS Thoth: Research Camp",  8680056),
