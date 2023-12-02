@@ -61,7 +61,7 @@ class AM2RWorld(World):
                 self.multiworld.get_location("Hydro Station: Turbine Terror", self.player).place_locked_item(self.create_item("Metroid"))
                 self.multiworld.get_location("Hydro Station: The Lookout", self.player).place_locked_item(self.create_item("Metroid"))
                 self.multiworld.get_location("Hydro Station: Recent Guardian", self.player).place_locked_item(self.create_item("Metroid"))
-                self.multiworld.get_location("Hydro Nest: EnderMahan", self.player).place_locked_item(self.create_item("Metroid"))
+                self.multiworld.get_location("Hydro Nest: Spiderman Decent", self.player).place_locked_item(self.create_item("Metroid"))
                 self.multiworld.get_location("Hydro Nest: Carnage Awful", self.player).place_locked_item(self.create_item("Metroid"))
                 self.multiworld.get_location("Hydro Nest: Venom Awesome", self.player).place_locked_item(self.create_item("Metroid"))
                 self.multiworld.get_location("Hydro Nest: Something More Something Awesome",self.player).place_locked_item(self.create_item("Metroid"))
