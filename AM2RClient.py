@@ -4,6 +4,8 @@ import json
 import time
 from asyncio import StreamReader, StreamWriter
 from typing import List
+from worlds.AM2R.items import item_table
+from worlds.AM2R.locations import get_location_datas
 
 import Utils
 from Utils import async_start
@@ -16,7 +18,10 @@ CONNECTION_RESET_STATUS = "Connection was reset"
 CONNECTION_TENTATIVE_STATUS = "Initial Connection Made"
 CONNECTION_CONNECTED_STATUS = "Connected"
 CONNECTION_INITIAL_STATUS = "Connection has not been initiated"
-
+item_location_scouts = {}
+item_id_to_game_id: dict = {item.code: item.game_id for item in item_table.values()}
+location_id_to_game_id: dict = {location.code: location.game_id for location in get_location_datas(None, None)}
+game_id_to_location_id: dict = {location.game_id: location.code for location in get_location_datas(None, None) if location.code != None}
 
 
 
@@ -32,21 +37,24 @@ class AM2RCommandProcessor(ClientCommandProcessor):
 class AM2RContext(CommonContext):
     command_processor = AM2RCommandProcessor
     game = 'AM2R'
-    items_handling = 0b001 # full local
-
+    items_handling = 0b111 # full remote
+    
     def __init__(self, server_address, password):
         super().__init__(server_address, password)
         self.waiting_for_client = False
         self.am2r_streams: (StreamReader, StreamWriter) = None
         self.am2r_sync_task = None
         self.am2r_status = CONNECTION_INITIAL_STATUS
+        self.received_locscouts = False
+        self.metroids_required = 41
+        self.client_requesting_scouts = False
     
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
             await super().server_auth(password_requested)
         if not self.auth:
             self.waiting_for_client = True
-            logger.info('Awaiting connection to AM2R to get Player information')
+            logger.info('No AM2R details found. Reconnect to MW server after AM2R is connected.')
             return
         
         await self.send_connect()
@@ -56,7 +64,7 @@ class AM2RContext(CommonContext):
 
         class AM2RManager(GameManager):
             logging_pairs = [
-                ("Client", "Multiworld")
+                ("Client", "Archipelago")
             ]
             base_title = "AM2R Multiworld Client"
 
@@ -64,13 +72,44 @@ class AM2RContext(CommonContext):
         self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
 
     def on_package(self, cmd: str, args: dict):
-        pass
-
+        if cmd == "Connected":
+            self.metroids_required = args["slot_data"]["MetroidsRequired"]
+        elif cmd == "LocationInfo":
+            logger.info("Received Location Info")
 def get_payload(ctx: AM2RContext):
-    testlist = [800, 500, 300]
-    return json.dumps({
-        'items': testlist
+    items_to_give = [item_id_to_game_id[item.item] for item in ctx.items_received]
+    if not ctx.locations_info:
+        locations = [location.code for location in get_location_datas(None, None) if location.code is not None]
+        async_start(ctx.send_msgs([{"cmd": "LocationScouts", "locations": locations, "create_as_hint": 0}]))
+        return json.dumps({
+            "cmd": "items", "items": items_to_give 
+        })
+    
+    if ctx.client_requesting_scouts:
+        itemdict = {}
+        for locationid, netitem in ctx.locations_info.items():
+            gamelocation = location_id_to_game_id[locationid]
+            if netitem.item in item_id_to_game_id:
+                gameitem = item_id_to_game_id[netitem.item]
+            else:
+                gameitem = 20
+            itemdict[gamelocation] = gameitem
+        print("Sending")
+        return json.dumps({
+            'cmd':"locations", 'items': itemdict, 'metroids': ctx.metroids_required
     })
+    return json.dumps({
+        "cmd": "items", "items": items_to_give 
+    })
+
+def parse_payload(ctx: AM2RContext, data_decoded):
+    item_list = [game_id_to_location_id[int(location)] for location in data_decoded["Items"]]
+    item_set = set(item_list)
+    ctx.locations_checked = item_list
+    new_locations = [location for location in ctx.missing_locations if location in item_set]
+    if new_locations:
+        async_start(ctx.send_msgs([{"cmd": "LocationChecks", "locations": new_locations}]))
+    
 
 async def am2r_sync_task(ctx: AM2RContext):
     logger.info("Starting AM2R connector, use /am2r for status information.")
@@ -86,7 +125,9 @@ async def am2r_sync_task(ctx: AM2RContext):
                 try:
                     data = await asyncio.wait_for(reader.readline(), timeout=5)
                     data_decoded = json.loads(data.decode())
-                    logger.info(data_decoded["Name"])
+                    ctx.auth = data_decoded["SlotName"]
+                    ctx.client_requesting_scouts = not bool(int(data_decoded["SeedReceived"]))
+                    parse_payload(ctx, data_decoded)
                 except asyncio.TimeoutError:
                     logger.debug("Read Timed Out, Reconnecting")
                     error_status = CONNECTION_TIMING_OUT_STATUS
