@@ -10,8 +10,9 @@ class ItemData(NamedTuple):
     code: int
     group: str
     classification: ItemClassification = ItemClassification.progression
+    game_id: int = 0
     required_num: int = 0
-
+    
 
 class AM2RItem(Item):
     game: str = "AM2R"
@@ -78,32 +79,32 @@ def create_all_items(multiworld: MultiWorld, player: int) -> None:
 
 
 item_table: Dict[str, ItemData] = {
-    "Missile":                  ItemData(8678000, "Ammo", ItemClassification.filler),
-    "Super Missile":            ItemData(8678001, "Ammo", ItemClassification.progression, 1),
-    "Power Bomb":               ItemData(8678002, "Ammo", ItemClassification.progression, 2),
-    "Energy Tank":              ItemData(8678003, "Ammo", ItemClassification.filler, 1),
+    "Missile":                  ItemData(8678000, "Ammo", ItemClassification.filler, 15),
+    "Super Missile":            ItemData(8678001, "Ammo", ItemClassification.progression, 16, 1),
+    "Power Bomb":               ItemData(8678002, "Ammo", ItemClassification.progression, 18, 2),
+    "Energy Tank":              ItemData(8678003, "Ammo", ItemClassification.filler, 17, 1),
     #  "Arm Cannon":            ItemData8678004, ("Equipment", ItemClassification.progression, 1),
     #  "Morph Ball":            ItemData8678005, ("Equipment", ItemClassification.progression, 1),
     #  "Power Grip":            ItemData8678006, ("Equipment", ItemClassification.progression, 1),
-    "Bombs":                    ItemData(8678007, "Equipment", ItemClassification.progression, 1),
-    "Spider Ball":              ItemData(8678008, "Equipment", ItemClassification.progression, 1),
-    "Hi Jump":                  ItemData(8678009, "Equipment", ItemClassification.progression, 1),
-    "Spring Ball":              ItemData(8678010, "Equipment", ItemClassification.progression, 1),
-    "Space Jump":               ItemData(8678011, "Equipment", ItemClassification.progression, 1),
-    "Speed Booster":            ItemData(8678012, "Equipment", ItemClassification.progression, 1),
-    "Screw Attack":             ItemData(8678013, "Equipment", ItemClassification.progression, 1),
-    "Varia Suit":               ItemData(8678014, "Equipment", ItemClassification.useful, 1),
-    "Gravity Suit":             ItemData(8678015, "Equipment", ItemClassification.progression, 1),
-    "Charge Beam":              ItemData(8678016, "Beam", ItemClassification.useful, 1),
-    "Wave Beam":                ItemData(8678017, "Beam", ItemClassification.useful, 1),
-    "Spazer":                   ItemData(8678018, "Beam", ItemClassification.useful, 1),
-    "Plasma Beam":              ItemData(8678019, "Beam", ItemClassification.useful, 1),
-    "Ice Beam":                 ItemData(8678020, "Beam", ItemClassification.progression, 1),
+    "Bombs":                    ItemData(8678007, "Equipment", ItemClassification.progression, 0, 1),
+    "Spider Ball":              ItemData(8678008, "Equipment", ItemClassification.progression, 2, 1),
+    "Hi Jump":                  ItemData(8678009, "Equipment", ItemClassification.progression, 4, 1),
+    "Spring Ball":              ItemData(8678010, "Equipment", ItemClassification.progression, 3, 1),
+    "Space Jump":               ItemData(8678011, "Equipment", ItemClassification.progression, 6, 1),
+    "Speed Booster":            ItemData(8678012, "Equipment", ItemClassification.progression, 7, 1),
+    "Screw Attack":             ItemData(8678013, "Equipment", ItemClassification.progression, 8, 1),
+    "Varia Suit":               ItemData(8678014, "Equipment", ItemClassification.useful, 5, 1),
+    "Gravity Suit":             ItemData(8678015, "Equipment", ItemClassification.progression, 9, 1),
+    "Charge Beam":              ItemData(8678016, "Beam", ItemClassification.useful, 10, 1),
+    "Wave Beam":                ItemData(8678017, "Beam", ItemClassification.useful, 12, 1),
+    "Spazer":                   ItemData(8678018, "Beam", ItemClassification.useful, 13, 1),
+    "Plasma Beam":              ItemData(8678019, "Beam", ItemClassification.useful, 14, 1),
+    "Ice Beam":                 ItemData(8678020, "Beam", ItemClassification.progression, 11, 1),
     "Equipment Trap":           ItemData(8678021, "Trap", ItemClassification.trap),
     "Freeze Trap":              ItemData(8678022, "Trap", ItemClassification.trap),
     "Short Beam":               ItemData(8678023, "Trap", ItemClassification.trap),
     "EMP Trap":                 ItemData(8678024, "Trap", ItemClassification.trap),
-    "Metroid":                  ItemData(8678025, "MacGuffin", ItemClassification.progression_skip_balancing),
+    "Metroid":                  ItemData(8678025, "MacGuffin", ItemClassification.progression_skip_balancing, 19),
     "The Galaxy is at Peace":   ItemData(8678026, "Victory", ItemClassification.progression)
 
 }
@@ -138,6 +139,8 @@ trap_items: List[str] = list(filter(item_is_trap, item_table.keys()))
 filler_items: List[str] = list(filter(item_is_filler, item_table.keys()))
 
 item_name_to_id: Dict[str, int] = {name: data.code for name, data in item_table.items()}
+
+
 
 item_name_groups: Dict[str, Set[str]] = {
     group: set(item_names) for group, item_names in itertools.groupby(item_table, get_item_group)
