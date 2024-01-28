@@ -1,3 +1,4 @@
+import types
 from typing import Dict
 from .items import item_table
 from .locations import get_location_datas, EventId
@@ -5,6 +6,15 @@ from .regions import create_regions_and_locations
 from BaseClasses import Tutorial, Item
 from .options import AM2R_options, MetroidsAreChecks
 from worlds.AutoWorld import World, WebWorld
+from worlds.LauncherComponents import Component, components
+
+
+def launch_client():
+    from AM2RClient import launch
+    launch()
+
+
+components.append(Component("AM2R Client", "AM2RClient"))
 
 
 class AM2RWeb(WebWorld):
