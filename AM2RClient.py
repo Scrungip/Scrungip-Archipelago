@@ -3,7 +3,7 @@ from __future__ import annotations
 import ModuleUpdate
 ModuleUpdate.update()
 
-from worlds.am2r.AM2RClient import launch
+from worlds.am2r.Client import launch
 import Utils
 
 if __name__ == "__main__":
