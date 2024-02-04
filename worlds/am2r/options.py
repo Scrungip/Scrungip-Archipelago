@@ -7,8 +7,8 @@ class MetroidsRequired(Range):
     """Chose how many Metroids need to be killed or obtained to go through to the omega nest"""
     display_name = "Metroids Required for Omega Nest"
     range_start = 0
-    range_end = 41
-    default = 41
+    range_end = 46
+    default = 46
 
 
 class MetroidsAreChecks(Choice):

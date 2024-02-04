@@ -83,9 +83,9 @@ item_table: Dict[str, ItemData] = {
     "Super Missile":            ItemData(8678001, "Ammo", ItemClassification.progression, 16, 1),
     "Power Bomb":               ItemData(8678002, "Ammo", ItemClassification.progression, 18, 2),
     "Energy Tank":              ItemData(8678003, "Ammo", ItemClassification.filler, 17, 1),
-    #  "Arm Cannon":            ItemData8678004, ("Equipment", ItemClassification.progression, 1),
-    #  "Morph Ball":            ItemData8678005, ("Equipment", ItemClassification.progression, 1),
-    #  "Power Grip":            ItemData8678006, ("Equipment", ItemClassification.progression, 1),
+    #  "Arm Cannon":            ItemData8678004, ("Equipment", ItemClassification.progression, ID, 1),
+    #  "Morph Ball":            ItemData8678005, ("Equipment", ItemClassification.progression, ID, 1),
+    #  "Power Grip":            ItemData8678006, ("Equipment", ItemClassification.progression, ID, 1),
     "Bombs":                    ItemData(8678007, "Equipment", ItemClassification.progression, 0, 1),
     "Spider Ball":              ItemData(8678008, "Equipment", ItemClassification.progression, 2, 1),
     "Hi Jump":                  ItemData(8678009, "Equipment", ItemClassification.progression, 4, 1),
@@ -108,13 +108,13 @@ item_table: Dict[str, ItemData] = {
     "The Galaxy is at Peace":   ItemData(8678026, "Victory", ItemClassification.progression)
 
 }
-
 filler_weights: Dict[str, int] = {
     "Missile":          44,
     "Super Missile":    10,
     "Power Bomb":       10,
     "Energy Tank":      10
 }
+
 trap_weights: Dict[str, int] = {
     "Equipment Trap":       1,
     "Freeze Trap":          1,
@@ -139,7 +139,6 @@ trap_items: List[str] = list(filter(item_is_trap, item_table.keys()))
 filler_items: List[str] = list(filter(item_is_filler, item_table.keys()))
 
 item_name_to_id: Dict[str, int] = {name: data.code for name, data in item_table.items()}
-
 
 
 item_name_groups: Dict[str, Set[str]] = {
