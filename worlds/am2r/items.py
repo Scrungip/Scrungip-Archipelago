@@ -31,9 +31,9 @@ def create_fixed_item_pool() -> List[str]:
 def create_metroid_items(MetroidsRequired: MetroidsRequired, MetroidsAreChecks: MetroidsAreChecks) -> List[str]:
     metroid_count = 0
     if MetroidsAreChecks == MetroidsAreChecks.option_include_A6:
-        metroid_count = MetroidsRequired.value + 5
+        metroid_count = MetroidsRequired.value
     elif MetroidsAreChecks == MetroidsAreChecks.option_exclude_A6:
-        metroid_count += MetroidsRequired.value
+        metroid_count += MetroidsRequired.value - 5
     return ["Metroid" for _ in range(metroid_count)]
 
 
