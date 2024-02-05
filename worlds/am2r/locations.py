@@ -63,7 +63,7 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
         LocationData("Inner Hydro Station", "Hydro Station: Behind Hi Jump",  8680036, 157, logic.AM2R_can_bomb),
 
         LocationData("Hydro Nest", "Hydro Nest: Below the Walkway",  8680037, 158, logic.AM2R_can_bomb),  # Bomb
-        LocationData("Hydro Nest", "Hydro Nest: Speed Celling",  8680038, 161, lambda state: state.has("Speed Booster", player) and state.has("Speed Booster", player)),  # speed
+        LocationData("Hydro Nest", "Hydro Nest: Speed Ceiling",  8680038, 161, lambda state: state.has("Speed Booster", player) and state.has("Speed Booster", player)),  # speed
         LocationData("Hydro Nest", "Hydro Nest: Behind the Wall",  8680039, 160, lambda state: state.has("Power Bomb", player) and state.has("Screw Attack", player) and state.has("Speed Booster", player)),  # PB + screw/speed
 
         LocationData("Industrial Complex Nest", "Industrial Complex: Above Save",  8680040, 214),
