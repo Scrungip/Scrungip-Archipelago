@@ -37,7 +37,7 @@ you can utilize the `Archipelago Server` to host the session yourself.
 
 ### Creating a `.yaml` file
 
-In the `Archipelago Launcher` hit the `Generate Template Settings` button and Which will generate a default `.yaml` file
+In the `Archipelago Launcher` hit the `Generate Template Settings` button which will generate a default `.yaml` file
 for all your currently installed worlds, this will add a `am2r.yaml` file to the `/players/templates` folder of the
 Archipelago installation.
 
