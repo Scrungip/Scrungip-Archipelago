@@ -3,7 +3,7 @@ from collections import Counter
 from typing import Dict, List, NamedTuple, Set
 
 from BaseClasses import Item, ItemClassification, MultiWorld
-from .options import MetroidsAreChecks, MetroidsRequired, get_option_value
+from .options import MetroidsAreChecks, MetroidsRequired, get_option_value, TrapFillPercentage, TrapEquipment, TapToss, TrapShort, TrapEMP
 
 
 class ItemData(NamedTuple):
@@ -39,6 +39,18 @@ def create_metroid_items(MetroidsRequired: MetroidsRequired, MetroidsAreChecks: 
 
 def create_trap_items(multiworld: MultiWorld, player: int, locations_to_trap: int) -> List[str]:
     trap_pool = trap_weights.copy()
+
+    if multiworld.TrapEquipment[player].value == 1:
+        del trap_pool["Equipment Trap"]
+
+    if multiworld.TapToss[player].value == 1:
+        del trap_pool["Big Toss Trap"]
+
+    if multiworld.TrapShort[player].value == 1:
+        del trap_pool["Short Beam"]
+
+    if multiworld.TrapEMP[player].value == 1:
+        del trap_pool["EMP Trap"]
 
     return multiworld.random.choices(
         population=list(trap_pool.keys()),
@@ -110,14 +122,14 @@ item_table: Dict[str, ItemData] = {
 }
 filler_weights: Dict[str, int] = {
     "Missile":          44,
-    "Super Missile":    10,
-    "Power Bomb":       10,
-    "Energy Tank":      10
+    "Super Missile":    9,
+    "Power Bomb":       8,
+    "Energy Tank":      9
 }
 
 trap_weights: Dict[str, int] = {
     "Equipment Trap":       1,
-    "Big Toss Trap":          1,
+    "Big Toss Trap":        1,
     "Short Beam":           1,
     "EMP Trap":             1
 }

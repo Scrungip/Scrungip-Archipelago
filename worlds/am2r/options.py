@@ -1,6 +1,6 @@
 from typing import Union, List, Dict
 from BaseClasses import MultiWorld
-from Options import AssembleOptions, Choice, DeathLink, DefaultOnToggle, Range, StartInventoryPool
+from Options import AssembleOptions, Choice, DeathLink, DefaultOnToggle, Range, StartInventoryPool, Toggle
 
 
 class MetroidsRequired(Range):
@@ -20,14 +20,28 @@ class MetroidsAreChecks(Choice):
     option_include_A6 = 2
 
 
-# class TrapFillPercentage(Range):
-#     """Adds in Slightly inconvenient Traps into the item pool Equipment Traps disable 1 random item for up to 3 minutes
-#     depending on the disabled item (more critical items will be disabled for less time).  Ice Traps seem rather
-#     self-explanatory, but they will freeze you upon receiving them with a full fanfare and an actual player freeze"""
-#     display_name = "Trap Fill Percentage"
-#     range_start = 0
-#     range_end = 100
-#     default = 0
+class TrapFillPercentage(Range):
+    """Adds in slightly inconvenient traps into the item pool"""
+    display_name = "Trap Fill Percentage"
+    range_start = 0
+    range_end = 100
+    default = 0
+
+
+class TrapEquipment(Toggle):
+    display_name = "Remove Equipment Trap"
+
+
+class TapToss(Toggle):
+    display_name = "Remove Toss Trap"
+
+
+class TrapShort(Toggle):
+    display_name = "Remove Short Beam"
+
+
+class TrapEMP(Toggle):
+    display_name = "Remove EMP Trap"
 
 
 #class ItemSprites(OptionList):
@@ -40,11 +54,6 @@ class MetroidsAreChecks(Choice):
 #    option_chiny = 2
 #    option_ungrouped = 3
 #    option_lies = 4
-
-
-#class Visuals(Toggle):
-#    """"""Re-colours all the visual elements with new fresh palettes.  Does not affect gameplay.
-#    Courtesy of Abyssal""""""
 
 
 #class StartingWeapons(Choice):
@@ -87,7 +96,11 @@ class MetroidsAreChecks(Choice):
 AM2R_options: Dict[str, AssembleOptions] = {
     "MetroidsRequired": MetroidsRequired,
     "MetroidsAreChecks": MetroidsAreChecks,
-    #  "TrapFillPercentage": TrapFillPercentage,
+    "TrapFillPercentage": TrapFillPercentage,
+    "TrapEquipment": TrapEquipment,
+    "TapToss": TapToss,
+    "TrapShort": TrapShort,
+    "TrapEMP": TrapEMP,
     #  "Item Sprites": ItemSprites,
     #  "Starting Weapons": StartingWeapons,
     #  "Randomize Baby", RandomizeBaby
