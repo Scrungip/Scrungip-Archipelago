@@ -130,6 +130,7 @@ async def am2r_sync_task(ctx: AM2RContext):
                     data = await asyncio.wait_for(reader.readline(), timeout=5)
                     data_decoded = json.loads(data.decode())
                     ctx.auth = data_decoded["SlotName"]
+                    ctx.password = data_decoded["SlotPass"]
                     ctx.client_requesting_scouts = not bool(int(data_decoded["SeedReceived"]))
                     await parse_payload(ctx, data_decoded)
                 except asyncio.TimeoutError:

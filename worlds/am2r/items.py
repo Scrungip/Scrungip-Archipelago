@@ -100,10 +100,10 @@ item_table: Dict[str, ItemData] = {
     "Spazer":                   ItemData(8678018, "Beam", ItemClassification.useful, 13, 1),
     "Plasma Beam":              ItemData(8678019, "Beam", ItemClassification.useful, 14, 1),
     "Ice Beam":                 ItemData(8678020, "Beam", ItemClassification.progression, 11, 1),
-    "Equipment Trap":           ItemData(8678021, "Trap", ItemClassification.trap),
-    "Freeze Trap":              ItemData(8678022, "Trap", ItemClassification.trap),
-    "Short Beam":               ItemData(8678023, "Trap", ItemClassification.trap),
-    "EMP Trap":                 ItemData(8678024, "Trap", ItemClassification.trap),
+    "Equipment Trap":           ItemData(8678021, "Trap", ItemClassification.trap, 21),
+    "Big Toss Trap":              ItemData(8678022, "Trap", ItemClassification.trap, 22),
+    "Short Beam":               ItemData(8678023, "Trap", ItemClassification.trap, 23),
+    "EMP Trap":                 ItemData(8678024, "Trap", ItemClassification.trap, 24),
     "Metroid":                  ItemData(8678025, "MacGuffin", ItemClassification.progression_skip_balancing, 19),
     "The Galaxy is at Peace":   ItemData(None, "Victory", ItemClassification.progression)
 
@@ -117,7 +117,7 @@ filler_weights: Dict[str, int] = {
 
 trap_weights: Dict[str, int] = {
     "Equipment Trap":       1,
-    "Freeze Trap":          1,
+    "Big Toss Trap":          1,
     "Short Beam":           1,
     "EMP Trap":             1
 }
