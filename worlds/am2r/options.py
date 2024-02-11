@@ -28,19 +28,23 @@ class TrapFillPercentage(Range):
     default = 0
 
 
-class TrapEquipment(Toggle):
+class RemoveEquipmentTrap(Toggle):
+    """Removes Equipment Traps from trap fill"""
     display_name = "Remove Equipment Trap"
 
 
-class TapToss(Toggle):
+class RemoveTossTrap(Toggle):
+    """Removes Big Toss Trap from trap fill"""
     display_name = "Remove Toss Trap"
 
 
-class TrapShort(Toggle):
+class RemoveShortBeam(Toggle):
+    """Removes Short Bema from trap fill"""
     display_name = "Remove Short Beam"
 
 
-class TrapEMP(Toggle):
+class RemoveEMPTrap(Toggle):
+    """Removes EMP Traps from trap fill"""
     display_name = "Remove EMP Trap"
 
 
@@ -97,10 +101,10 @@ AM2R_options: Dict[str, AssembleOptions] = {
     "MetroidsRequired": MetroidsRequired,
     "MetroidsAreChecks": MetroidsAreChecks,
     "TrapFillPercentage": TrapFillPercentage,
-    "TrapEquipment": TrapEquipment,
-    "TapToss": TapToss,
-    "TrapShort": TrapShort,
-    "TrapEMP": TrapEMP,
+    "RemoveEquipmentTrap": RemoveEquipmentTrap,
+    "RemoveTossTrap": RemoveTossTrap,
+    "RemoveShortBeam": RemoveShortBeam,
+    "RemoveEMPTrap": RemoveEMPTrap,
     #  "Item Sprites": ItemSprites,
     #  "Starting Weapons": StartingWeapons,
     #  "Randomize Baby", RandomizeBaby

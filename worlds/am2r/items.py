@@ -3,7 +3,7 @@ from collections import Counter
 from typing import Dict, List, NamedTuple, Set
 
 from BaseClasses import Item, ItemClassification, MultiWorld
-from .options import MetroidsAreChecks, MetroidsRequired, get_option_value, TrapFillPercentage, TrapEquipment, TapToss, TrapShort, TrapEMP
+from .options import MetroidsAreChecks, MetroidsRequired, get_option_value, TrapFillPercentage, RemoveEquipmentTrap, RemoveTossTrap, RemoveShortBeam, RemoveEMPTrap
 
 
 class ItemData(NamedTuple):
@@ -40,16 +40,16 @@ def create_metroid_items(MetroidsRequired: MetroidsRequired, MetroidsAreChecks: 
 def create_trap_items(multiworld: MultiWorld, player: int, locations_to_trap: int) -> List[str]:
     trap_pool = trap_weights.copy()
 
-    if multiworld.TrapEquipment[player].value == 1:
+    if multiworld.RemoveEquipmentTrap[player].value == 1:
         del trap_pool["Equipment Trap"]
 
-    if multiworld.TapToss[player].value == 1:
+    if multiworld.RemoveTossTrap[player].value == 1:
         del trap_pool["Big Toss Trap"]
 
-    if multiworld.TrapShort[player].value == 1:
+    if multiworld.RemoveShortBeam[player].value == 1:
         del trap_pool["Short Beam"]
 
-    if multiworld.TrapEMP[player].value == 1:
+    if multiworld.RemoveEMPTrap[player].value == 1:
         del trap_pool["EMP Trap"]
 
     return multiworld.random.choices(
