@@ -129,9 +129,9 @@ filler_weights: Dict[str, int] = {
 
 trap_weights: Dict[str, int] = {
     "Equipment Trap":       1,
-    "Big Toss Trap":        1,
-    "Short Beam":           1,
-    "EMP Trap":             1
+    "Big Toss Trap":        3,
+    "Short Beam":           3,
+    "EMP Trap":             2
 }
 
 

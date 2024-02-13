@@ -101,14 +101,14 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
         LocationData("The Tower", "The Tower: Beside Tester",  8680066, 256, lambda state: state.has("Power Bomb", player)),  # pb
         LocationData("The Tower", "The Tower: Left side of tower",  8680067, 258, lambda state: state.has("Power Bomb", player)),  # pb
 
-        LocationData("Geothermal", "The Tower: Geothermal Reactor",  8680068, 253),
-        LocationData("Geothermal", "The Tower: Post Geothermal Chozo",  8680069, 254, lambda state: state.has("Power Bomb", player)),  # pb
-        LocationData("Geothermal", "The Tower: Post Geothermal Shinespark",  8680070, 255, lambda state: state.has("Power Bomb", player) and state.has("Speed Booster", player) and state.has("Super Missile", player)),  # Pb + spped + super
+        LocationData("Geothermal", "The Tower: Geothermal Reactor",  8680068, 253, lambda state: state.has("Power Bomb", player) and state.has("Speed Booster", player) and logic.AM2R_can_schmove(state)),  # pb + speed + spider
+        LocationData("Geothermal", "The Tower: Post Geothermal Chozo",  8680069, 254, lambda state: state.has("Power Bomb", player, 3) and state.has("Speed Booster", player) and logic.AM2R_can_schmove(state)),  # pb
+        LocationData("Geothermal", "The Tower: Post Geothermal Shinespark",  8680070, 255, lambda state: state.has("Power Bomb", player, 3) and state.has("Speed Booster", player) and logic.AM2R_can_schmove(state) and state.has("Super Missile", player)),  # Pb + spped + super
 
         LocationData("Underwater Distribution Center", "Distribution Center: Main Room Shinespark",  8680071, 309, lambda state: state.has("Gravity Suit", player) and state.has("Speed Booster", player)),  # grav + screw
         LocationData("Underwater Distribution Center", "Distribution Center: Speed Hallway",  8680072, 307, lambda state: state.has("Speed Booster", player) and state.has("Gravity Suit", player)),  # speed + grav
 
-        LocationData("EMP", "Distribution Center: After EMP Activation",  8680073, 300, lambda state: state.has("Screw Attack", player)),  # screw
+        LocationData("EMP", "Distribution Center: After EMP Activation",  8680073, 300, lambda state: state.has("Screw Attack", player) and state.has("Speed Booster", player)),  # screw
 
         LocationData("Underwater Distro Connection", "Distribution Center: Spiderball Spike \"Maze\"",  8680074, 303, lambda state: state.has("Spider Ball", player) and state.has("Gravity Suit", player)),  # spiderball underwater
         LocationData("Underwater Distro Connection", "Distribution Center: Before Spikey Tunnel",  8680075, 304),

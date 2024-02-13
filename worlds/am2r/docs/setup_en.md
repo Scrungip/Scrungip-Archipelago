@@ -1,7 +1,7 @@
 # AM2R Archipelago Setup Guide
 
 ## Required Software
-- [Archipelago](https://github.com/ArchipelagoMW/Archipelago/releases/tag/latest)
+- [Archipelago](https://github.com/ArchipelagoMW/Archipelago/releases/latest)
 - [AM2R Multiworld Mod](https://github.com/DodoBirby/AM2R-Multiworld-Mod/releases/latest)
 - [AM2R Launcher](https://github.com/AM2R-Community-Developers/AM2RLauncher/releases/latest)
 - Your self provided copy of AM2R 1.1 for the launcher
@@ -18,7 +18,7 @@ finally from the `Play` tab select the `Multiworld` profile and hit `Install` an
 ### Installing `am2r.apworld`
 
 After downloading the `am2r.apworld` file you will need to move it to your standard 0.4.4  or newer installation of 
-[Archipelago](https://github.com/ArchipelagoMW/Archipelago/releases/tag/latest), 
+[Archipelago](https://github.com/ArchipelagoMW/Archipelago/releases/latest), 
 you will need to navigate to the `/lib/worlds` folder of the Archipelago installation and add the `am2r.apworld` file into there.
 
 From there you can use the `Archipelago Launcher` to find and open `AM2R Client` in the future steps.
@@ -42,8 +42,7 @@ for all your currently installed worlds, this will add a `am2r.yaml` file to the
 Archipelago installation.
 
 The `.yaml` file is a special text file that can be edited in any text editor including your OS's default text editor.
-I would recommend installing at least [Sublime Text](https://www.sublimetext.com/) or [Notepad++](https://notepad-plus-plus.org/downloads/) 
-for the easiest experience.
+I would recommend installing at least [Sublime Text](https://www.sublimetext.com/) or [Notepad++](https://notepad-plus-plus.org/downloads/) for the easiest experience.
 
 The `.yaml` file will look something like this:
 ```yaml
@@ -71,6 +70,35 @@ After setting up the `.yaml` file you can save it and then send it to the host.
 After the host has generated the seed and has given you the connection information you can use the `Archipelago Launcher` 
 to run the `AM2R Client` after that run the AM2R Multiworld Mod and go to the settings to find the `Multiworld` menu to enter 
 the slot name (player name) and hit `Connect to Python Client` the client will then show `Successfully Connected to AM2R`
-at which pont you can run /connect [ip]:[port] or use the address bar at the top with the same formatting to connect to the
+at which point you can run /connect [IP]:[PORT] or use the address bar at the top with the same formatting to connect to the
 multiworld session at which point you can start a new save file or continue a save file.
 
+# Things are subject to change at developer discretion
+
+### Seeds should be beatable but its possible there are still logical errors
+
+## Bug Reporting/Feature Requests
+
+If you are playing this mod and are encountering bugs **DO NOT** report them to the Archipelago server this is not official support from them, and they may or may not know what to do instead you can report them to the dedicated mod thread on the [AM2R Server](https://discord.gg/YTQnkAJ) or on the [Modding Server](https://discord.gg/Fdq3MSXEDb) and you can always open an issue on the github.
+
+### Help I don't have enough energy to do this check with 100% trap fill on fusion mode
+
+Fuck you, if the testers can do it you can too, and if you cant do it play on an easier difficulty.
+
+> "no one plays on hard dude" - a tester
+
+## Randomizer Information
+
+### What is randomized?
+
+All items both majors and minors are randomized together in one pool with the option to add in the metroids as checks as well.
+
+### What is the goal?
+
+The goal of this AM2R randomizer implementation is to kill or collect the self specified number of metroids to reach the queen metroid and save the baby metroid.
+
+This message sponsored by "The Galactic Federation"
+
+### I softlocked myself
+
+Don't worry all items are saved by the server, but you should in theory never need to softlock yourself to beat the game unless I messed up

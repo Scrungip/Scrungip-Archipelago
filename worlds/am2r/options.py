@@ -21,7 +21,8 @@ class MetroidsAreChecks(Choice):
 
 
 class TrapFillPercentage(Range):
-    """Adds in slightly inconvenient traps into the item pool"""
+    """Adds in slightly inconvenient traps into the item pool
+    the more harfull ones shw up less"""
     display_name = "Trap Fill Percentage"
     range_start = 0
     range_end = 100
@@ -29,22 +30,22 @@ class TrapFillPercentage(Range):
 
 
 class RemoveEquipmentTrap(Toggle):
-    """Removes Equipment Traps from trap fill"""
+    """This one sucks and is generally un-fun, so it is likely to change"""
     display_name = "Remove Equipment Trap"
 
 
 class RemoveTossTrap(Toggle):
-    """Removes Big Toss Trap from trap fill"""
+    """There is a pipebomb in your mailbox"""
     display_name = "Remove Toss Trap"
 
 
 class RemoveShortBeam(Toggle):
-    """Removes Short Bema from trap fill"""
+    """Remove muscle memory trap"""
     display_name = "Remove Short Beam"
 
 
 class RemoveEMPTrap(Toggle):
-    """Removes EMP Traps from trap fill"""
+    """Yes we know that it looks weird during the idle animation, but it's a vanilla bug"""
     display_name = "Remove EMP Trap"
 
 
