@@ -34,6 +34,27 @@ class AM2RCommandProcessor(ClientCommandProcessor):
         if isinstance(self.ctx, AM2RContext):
             logger.info(f"Connection Status: {self.ctx.am2r_status}")
 
+    def _cmd_septoggs(self):
+        """Septogg information"""
+        logger.info("Hi, messenger for the co-creator of the Septoggs here. The Septoggs were creatures found in the \
+original MII as platforms to help samus with Space Jumping, we wanted to include them along with the Blob Throwers to \
+complete the enemy roster from the original game, but had to come up with another purpose for them to work besides \
+floating platforms. They do help the player, which is most noticeable in randomizer modes, but they also act as \
+environmental story telling, akin to the Zebesian Roaches and Tatori from Super Metroid. This can be seen with the Baby \
+Septoggs randomly appearing in certain areas with camouflage of that environment, more and more babies appearing by \
+Metroid husks in the breeding grounds after more Metroids are killed in the area (to show how much damage the Metroids \
+can cause to the ecosystem and establish that Septoggs are scavengers), and Baby Septoggs staying close to Elder \
+Septoggs (as they feel safe next to the durable Elders)")
+
+    def _cmd_credits(self):
+        """Huge thanks to all the people listed here"""
+        logger.info("AM2R Multiworld Randomizer brought to you by:")
+        logger.info("Programmers: Ehseezed DodoBirb")
+        logger.info("Sprite Artists: Abyssal Creature, Mimolette")
+        logger.info("Special Thanks to all the beta testers and the AM2R Community Updates Team")
+        logger.info("And Variable who was conned into becoming a programmer to fix issues he found")
+
+
 class AM2RContext(CommonContext):
     command_processor = AM2RCommandProcessor
     game = 'AM2R'

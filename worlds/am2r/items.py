@@ -107,7 +107,7 @@ item_table: Dict[str, ItemData] = {
     "Screw Attack":             ItemData(8678013, "Equipment", ItemClassification.progression, 8, 1),
     "Varia Suit":               ItemData(8678014, "Equipment", ItemClassification.useful, 5, 1),
     "Gravity Suit":             ItemData(8678015, "Equipment", ItemClassification.progression, 9, 1),
-    "Charge Beam":              ItemData(8678016, "Beam", ItemClassification.useful, 10, 1),
+    "Charge Beam":              ItemData(8678016, "Beam", ItemClassification.progression, 10, 1),
     "Wave Beam":                ItemData(8678017, "Beam", ItemClassification.useful, 12, 1),
     "Spazer":                   ItemData(8678018, "Beam", ItemClassification.useful, 13, 1),
     "Plasma Beam":              ItemData(8678019, "Beam", ItemClassification.useful, 14, 1),
