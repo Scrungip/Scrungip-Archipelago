@@ -28,9 +28,9 @@ class TrapFillPercentage(Range):
     default = 0
 
 
-class RemoveEquipmentTrap(Toggle):
-    """Removes Equipment Traps from trap fill"""
-    display_name = "Remove Equipment Trap"
+class RemoveFloodTrap(Toggle):
+    """Removes Flood Traps from trap fill"""
+    display_name = "Remove Flood Trap"
 
 
 class RemoveTossTrap(Toggle):
@@ -39,13 +39,21 @@ class RemoveTossTrap(Toggle):
 
 
 class RemoveShortBeam(Toggle):
-    """Removes Short Bema from trap fill"""
+    """Removes Short Beam from trap fill"""
     display_name = "Remove Short Beam"
 
 
 class RemoveEMPTrap(Toggle):
     """Removes EMP Traps from trap fill"""
     display_name = "Remove EMP Trap"
+
+class RemoveTouhouTrap(Toggle):
+    """Removes Touhou Traps from trap fill"""
+    display_name = "Remove Touhou Trap"
+
+class RemoveOHKOTrap(Toggle):
+    """Removes OHKO Traps from trap fill"""
+    display_name = "Remove OHKO Trap"
 
 
 #class ItemSprites(OptionList):
@@ -101,10 +109,12 @@ AM2R_options: Dict[str, AssembleOptions] = {
     "MetroidsRequired": MetroidsRequired,
     "MetroidsAreChecks": MetroidsAreChecks,
     "TrapFillPercentage": TrapFillPercentage,
-    "RemoveEquipmentTrap": RemoveEquipmentTrap,
+    "RemoveFloodTrap": RemoveFloodTrap,
     "RemoveTossTrap": RemoveTossTrap,
     "RemoveShortBeam": RemoveShortBeam,
     "RemoveEMPTrap": RemoveEMPTrap,
+    "RemoveTouhouTrap": RemoveTouhouTrap,
+    "RemoveOHKOTrap": RemoveOHKOTrap,
     #  "Item Sprites": ItemSprites,
     #  "Starting Weapons": StartingWeapons,
     #  "Randomize Baby", RandomizeBaby
