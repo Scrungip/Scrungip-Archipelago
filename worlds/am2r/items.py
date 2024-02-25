@@ -3,7 +3,7 @@ from collections import Counter
 from typing import Dict, List, NamedTuple, Set
 
 from BaseClasses import Item, ItemClassification, MultiWorld
-from .options import MetroidsAreChecks, MetroidsRequired, get_option_value, TrapFillPercentage, RemoveEquipmentTrap, RemoveTossTrap, RemoveShortBeam, RemoveEMPTrap
+from .options import MetroidsAreChecks, MetroidsRequired, get_option_value, TrapFillPercentage, RemoveFloodTrap, RemoveTossTrap, RemoveShortBeam, RemoveEMPTrap, RemoveOHKOTrap, RemoveTouhouTrap
 
 
 class ItemData(NamedTuple):
@@ -40,8 +40,8 @@ def create_metroid_items(MetroidsRequired: MetroidsRequired, MetroidsAreChecks: 
 def create_trap_items(multiworld: MultiWorld, player: int, locations_to_trap: int) -> List[str]:
     trap_pool = trap_weights.copy()
 
-    if multiworld.RemoveEquipmentTrap[player].value == 1:
-        del trap_pool["Equipment Trap"]
+    if multiworld.RemoveFloodTrap[player].value == 1:
+        del trap_pool["Flood Trap"]
 
     if multiworld.RemoveTossTrap[player].value == 1:
         del trap_pool["Big Toss Trap"]
@@ -51,6 +51,12 @@ def create_trap_items(multiworld: MultiWorld, player: int, locations_to_trap: in
 
     if multiworld.RemoveEMPTrap[player].value == 1:
         del trap_pool["EMP Trap"]
+    
+    if multiworld.RemoveTouhouTrap[player].value == 1:
+        del trap_pool["Touhou Trap"]
+
+    if multiworld.RemoveOHKOTrap[player].value == 1:
+        del trap_pool["OHKO Trap"]
 
     return multiworld.random.choices(
         population=list(trap_pool.keys()),
@@ -112,10 +118,12 @@ item_table: Dict[str, ItemData] = {
     "Spazer":                   ItemData(8678018, "Beam", ItemClassification.useful, 13, 1),
     "Plasma Beam":              ItemData(8678019, "Beam", ItemClassification.useful, 14, 1),
     "Ice Beam":                 ItemData(8678020, "Beam", ItemClassification.progression, 11, 1),
-    "Equipment Trap":           ItemData(8678021, "Trap", ItemClassification.trap, 21),
-    "Big Toss Trap":              ItemData(8678022, "Trap", ItemClassification.trap, 22),
+    "Flood Trap":               ItemData(8678021, "Trap", ItemClassification.trap, 21),
+    "Big Toss Trap":            ItemData(8678022, "Trap", ItemClassification.trap, 22),
     "Short Beam":               ItemData(8678023, "Trap", ItemClassification.trap, 23),
     "EMP Trap":                 ItemData(8678024, "Trap", ItemClassification.trap, 24),
+    "OHKO Trap":                ItemData(8678026, "Trap", ItemClassification.trap, 25),
+    "Touhou Trap":              ItemData(8678027, "Trap", ItemClassification.trap, 26),
     "Metroid":                  ItemData(8678025, "MacGuffin", ItemClassification.progression_skip_balancing, 19),
     "The Galaxy is at Peace":   ItemData(None, "Victory", ItemClassification.progression)
 
@@ -128,10 +136,12 @@ filler_weights: Dict[str, int] = {
 }
 
 trap_weights: Dict[str, int] = {
-    "Equipment Trap":       1,
-    "Big Toss Trap":        3,
-    "Short Beam":           3,
-    "EMP Trap":             2
+    "Flood Trap":           1,
+    "Big Toss Trap":        1,
+    "Short Beam":           1,
+    "EMP Trap":             1,
+    "Touhou Trap":          1,
+    "OHKO Trap":            1
 }
 
 
