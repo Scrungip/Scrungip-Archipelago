@@ -21,8 +21,7 @@ class MetroidsAreChecks(Choice):
 
 
 class TrapFillPercentage(Range):
-    """Adds in slightly inconvenient traps into the item pool
-    the more harfull ones shw up less"""
+    """Adds in slightly inconvenient traps into the item pool"""
     display_name = "Trap Fill Percentage"
     range_start = 0
     range_end = 100
@@ -48,9 +47,11 @@ class RemoveEMPTrap(Toggle):
     """Yes we know that it looks weird during the idle animation, but it's a vanilla bug"""
     display_name = "Remove EMP Trap"
 
+
 class RemoveTouhouTrap(Toggle):
     """Removes Touhou Traps from trap fill"""
     display_name = "Remove Touhou Trap"
+
 
 class RemoveOHKOTrap(Toggle):
     """Removes OHKO Traps from trap fill"""
