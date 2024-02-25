@@ -2,6 +2,7 @@ import asyncio
 import copy
 import json
 import time
+import random
 from asyncio import StreamReader, StreamWriter
 from typing import List
 from worlds.am2r.items import item_table
@@ -91,7 +92,10 @@ def get_payload(ctx: AM2RContext):
         for locationid, netitem in ctx.locations_info.items():
             gamelocation = location_id_to_game_id[locationid]
             if netitem.item in item_id_to_game_id:
-                gameitem = item_id_to_game_id[netitem.item]
+                if netitem.flags & 0b100 != 0:
+                    gameitem = random.randint(0, 20)
+                else:
+                    gameitem = item_id_to_game_id[netitem.item]
             else:
                 gameitem = 20
             itemdict[gamelocation] = gameitem
@@ -185,6 +189,7 @@ def launch():
     options = Utils.get_options()
 
     async def main(args):
+        random.seed()
         ctx = AM2RContext(args.connect, args.password)
         ctx.server_task = asyncio.create_task(server_loop(ctx), name="ServerLoop")
         if gui_enabled:
