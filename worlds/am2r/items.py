@@ -3,7 +3,7 @@ from collections import Counter
 from typing import Dict, List, NamedTuple, Set
 
 from BaseClasses import Item, ItemClassification, MultiWorld
-from .options import MetroidsAreChecks, MetroidsRequired, get_option_value, TrapFillPercentage, RemoveEquipmentTrap, RemoveTossTrap, RemoveShortBeam, RemoveEMPTrap
+from .options import MetroidsAreChecks, MetroidsRequired, get_option_value, TrapFillPercentage, RemoveFloodTrap, RemoveTossTrap, RemoveShortBeam, RemoveEMPTrap, RemoveOHKOTrap, RemoveTouhouTrap
 
 
 class ItemData(NamedTuple):
