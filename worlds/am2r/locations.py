@@ -170,7 +170,7 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
         LocationData("The Tower", "The Tower: Patricia", 108680127, 337, logic.AM2R_can_fly),  # Mahan
         LocationData("The Tower", "The Tower: Variable \"GUH\"", 108680128, 338, logic.AM2R_can_spider),  # ANX
         LocationData("The Tower", "Ruler of The Tower: Slagathor", 108680129, 340, lambda state: state.has("Power Bomb", player, 3) or state.has("Bombs", player)),  # Rawsome
-        LocationData("The Tower", "The Tower: Mr.Sandman", 108680130, 339, lambda state: state.has("Space Jump", player) or state.has("Hi Jump") and state.has("Speed Booster")),  # Xander
+        LocationData("The Tower", "The Tower: Mr.Sandman", 108680130, 339, lambda state: state.has("Space Jump", player) or state.has("Hi Jump", player) and state.has("Speed Booster", player)),  # Xander
         LocationData("The Tower", "The Tower: Anakin", 108680131, 341, lambda state: state.has("Space Jump", player)),  # Xander
         LocationData("The Tower", "The Tower: Xander", 108680132, 342, lambda state: state.has("Space Jump", player)),
 
