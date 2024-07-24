@@ -1,7 +1,6 @@
 from typing import List, Tuple, Optional, Callable, NamedTuple
 from BaseClasses import MultiWorld, CollectionState
 from .rules import AM2RLogic
-from .options import MetroidsAreChecks, is_option_enabled
 
 
 EventId: Optional[int] = None
@@ -110,7 +109,7 @@ def get_location_datas(world: Optional[MultiWorld], player: Optional[int]):
 
         LocationData("EMP", "Distribution Center: After EMP Activation",  108680073, 300, lambda state: state.has("Screw Attack", player) and state.has("Speed Booster", player)),  # screw
 
-        LocationData("Underwater Distro Connection", "Distribution Center: Spider Ball Crumble Spiky \"Maze\"",  108680074, 303, lambda state: state.has("Spider Ball", player) and state.has("Gravity Suit", player)),  # spiderball underwater
+        LocationData("Underwater Distro Connection", "Distribution Center: Spider Ball Crumble Spiky \"Maze\"",  108680074, 303, lambda state: state.has("Spider Ball", player) and state.has("Gravity Suit", player) and logic.AM2R_can_bomb(state)),  # spiderball underwater
         LocationData("Underwater Distro Connection", "Distribution Center: Before Spiky Trial",  108680075, 304),
         LocationData("Underwater Distro Connection", "Distribution Center: Spiky Trial Shinespark",  108680076, 305, lambda state: state.has("Gravity Suit", player) and state.has("Speed Booster", player)),  # grav + speed
         LocationData("Underwater Distro Connection", "Distribution Center: After Spiky Trial",  108680078, 306, lambda state: state.has("Power Bomb", player) and state.has("Speed Booster", player) and state.has("Gravity Suit", player) and state.has("Space Jump", player)),  # speed + grav + space + pb

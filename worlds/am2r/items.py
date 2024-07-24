@@ -3,7 +3,7 @@ from collections import Counter
 from typing import Dict, List, NamedTuple, Set
 
 from BaseClasses import Item, ItemClassification, MultiWorld
-from .options import MetroidsAreChecks, MetroidsInPool, MetroidsRequired, get_option_value, TrapFillPercentage, RemoveFloodTrap, RemoveTossTrap, RemoveShortBeam, RemoveEMPTrap, RemoveOHKOTrap, RemoveTouhouTrap
+from .options import LocationSettings ,MetroidsInPool, MetroidsRequired, get_option_value, TrapFillPercentage, RemoveFloodTrap, RemoveTossTrap, RemoveShortBeam, RemoveEMPTrap, RemoveOHKOTrap, RemoveTouhouTrap
 
 
 class ItemData(NamedTuple):
@@ -28,14 +28,15 @@ def create_fixed_item_pool() -> List[str]:
     return list(Counter(required_items).elements())
 
 
-def create_metroid_items(MetroidsRequired: MetroidsRequired, MetroidsInPool: MetroidsInPool, MetroidsAreChecks: MetroidsAreChecks) -> List[str]:
-    metroid_count = 0
+def create_metroid_items(MetroidsRequired: MetroidsRequired, MetroidsInPool: MetroidsInPool, LocationSettings: LocationSettings) -> List[str]:
     if MetroidsRequired > MetroidsInPool:
-        MetroidsInPool = MetroidsRequired
-    if MetroidsAreChecks == MetroidsAreChecks.option_include_A6:
-        metroid_count = MetroidsInPool.value
-    elif MetroidsAreChecks == MetroidsAreChecks.option_exclude_A6:
-        metroid_count = MetroidsInPool.value - 5
+        metroid_count = MetroidsRequired
+    else:
+        metroid_count = MetroidsInPool
+
+    if LocationSettings == LocationSettings.option_items_no_A6 or LocationSettings == LocationSettings.option_items_and_A6:
+        metroid_count = 0  #  metroids are forced vanilla in those settings and thats where you collect them from so don't add them to the pool
+
     return ["Metroid" for _ in range(metroid_count)]
 
 

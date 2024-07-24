@@ -19,13 +19,17 @@ class MetroidsInPool(Range):
     default = 46
 
 
-class MetroidsAreChecks(Choice):
-    """Have each of the 46 non lab Metroids be treated as locations"""
-    display_name = "Metroids are Checks"
+class LocationSettings(Choice):
+    """Chose what items you want in the pool
+    not including checks via the no_A6 will force them to be excluded
+    not adding Metroids will force them to be vanilla and will not randomize them into item locations
+    adding metroids but excluding A6 will leave the A6 and omega nest metroids vanilla but will leave the full amount in the pool"""
+    display_name = "Locations to Check"
     default = 2
-    option_disabled = 0
-    option_exclude_A6 = 1
-    option_include_A6 = 2
+    option_items_no_A6 = 0
+    option_items_and_A6 = 1
+    option_add_metroids_no_A6 = 2
+    option_add_metroids_and_A6 = 3
 
 
 class TrapFillPercentage(Range):
@@ -118,7 +122,7 @@ class RemoveOHKOTrap(Toggle):
 AM2R_options: Dict[str, AssembleOptions] = {
     "MetroidsRequired": MetroidsRequired,
     "MetroidsInPool": MetroidsInPool,
-    "MetroidsAreChecks": MetroidsAreChecks,
+    "LocationSettings": LocationSettings,
     "TrapFillPercentage": TrapFillPercentage,
     "RemoveFloodTrap": RemoveFloodTrap,
     "RemoveTossTrap": RemoveTossTrap,

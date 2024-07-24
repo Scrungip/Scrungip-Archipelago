@@ -1,7 +1,7 @@
 import itertools
 from typing import Union
 from BaseClasses import MultiWorld, CollectionState
-from .options import MetroidsRequired, MetroidsAreChecks, get_option_value
+from .options import MetroidsRequired, LocationSettings, get_option_value
 
 
 class AM2RLogic:
@@ -30,9 +30,9 @@ class AM2RLogic:
     def AM2R_has_ballspark(self, state: CollectionState) -> bool:
         return state.has_all({'Speed Booster', 'Spring Ball'}, self.player)
 
-    def AM2R_can_down(self, state: CollectionState) -> bool:
+    def AM2R_can_down(self, state: CollectionState) -> bool:  # both of these fall to else and I really dont want to fix it until the full rewrite
         amount = get_option_value(MultiWorld, self.player, "MetroidsRequired")
-        check_state = get_option_value(MultiWorld, self.player, "MetroidsAreChecks")
+        check_state = get_option_value(MultiWorld, self.player, "LocationSettings")
 
         if check_state >= 1:
             return state.has("Metroid", self.player, amount) \
@@ -42,9 +42,9 @@ class AM2RLogic:
             return state.has_all({"Speed Booster", "Ice Beam", "Super Missile"}, self.player) \
                 and self.AM2R_can_fly(state) and self.AM2R_can_bomb(state) and (state.has("Screw Attack", self.player) or state.has("Power Bomb", self.player))
 
-    def AM2R_can_lab(self, state: CollectionState) -> bool:
+    def AM2R_can_lab(self, state: CollectionState) -> bool:  # both of these fall to else and I really dont want to fix it until the full rewrite
         amount = get_option_value(MultiWorld, self.player, "MetroidsRequired")
-        check_state = get_option_value(MultiWorld, self.player, "MetroidsAreChecks")
+        check_state = get_option_value(MultiWorld, self.player, "LocationSettings")
 
         if check_state == 2:
             amount += 5

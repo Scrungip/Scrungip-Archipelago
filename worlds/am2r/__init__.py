@@ -5,7 +5,7 @@ from .items import item_table
 from .locations import get_location_datas, EventId
 from .regions import create_regions_and_locations
 from BaseClasses import Tutorial, Item
-from .options import AM2R_options, MetroidsAreChecks
+from .options import AM2R_options, LocationSettings
 from worlds.AutoWorld import World, WebWorld
 from worlds.LauncherComponents import Component, components, Type, launch_subprocess
 
@@ -58,14 +58,14 @@ class AM2RWorld(World):
 
     def create_items(self) -> None:
         if self.options.MetroidsRequired > self.options.MetroidsInPool:
-            logger.warning(f"Metroid count raised to set requirement for {self.multiworld.get_player_name(self.player)} because the given count was too low for the requirement.")
-        if self.options.MetroidsAreChecks != MetroidsAreChecks.option_include_A6:
+            logger.warning(f"Metroids in pool raised to {self.options.MetroidsRequired.value} for {self.multiworld.get_player_name(self.player)} because the given count was too low for the requirement.")
+        if self.options.LocationSettings != LocationSettings.option_add_metroids_and_A6:
             self.multiworld.get_location("Deep Caves: Lil\' Bro", self.player).place_locked_item(self.create_item("Metroid"))
             self.multiworld.get_location("Deep Caves: Big Sis", self.player).place_locked_item(self.create_item("Metroid"))
             self.multiworld.get_location("Omega Nest: SA-X Queen Lucina", self.player).place_locked_item(self.create_item("Metroid"))
             self.multiworld.get_location("Omega Nest: Epsilon", self.player).place_locked_item(self.create_item("Metroid"))
             self.multiworld.get_location("Omega Nest: Druid", self.player).place_locked_item(self.create_item("Metroid"))
-            if self.options.MetroidsAreChecks == MetroidsAreChecks.option_disabled:
+            if self.options.LocationSettings != LocationSettings.option_add_metroids_no_A6:
                 self.multiworld.get_location("The Forgotten Alpha", self.player).place_locked_item(self.create_item("Metroid"))
                 self.multiworld.get_location("Golden Temple: Friendly Spider", self.player).place_locked_item(self.create_item("Metroid"))
                 self.multiworld.get_location("Golden Temple Nest: Moe", self.player).place_locked_item(self.create_item("Metroid"))
@@ -107,6 +107,11 @@ class AM2RWorld(World):
                 self.multiworld.get_location("Alpha Squadron: Martin", self.player).place_locked_item(self.create_item("Metroid"))
                 self.multiworld.get_location("Underwater: Gamma Bros Mario", self.player).place_locked_item(self.create_item("Metroid"))
                 self.multiworld.get_location("Underwater: Gamma Bros Luigi", self.player).place_locked_item(self.create_item("Metroid"))
+
+        if self.options.LocationSettings == LocationSettings.option_items_no_A6 or self.options.LocationSettings == LocationSettings.option_add_metroids_no_A6:
+            self.multiworld.exclude_locations[self.player].value.add("Deep Caves: Drivel Ballspark")
+            self.multiworld.exclude_locations[self.player].value.add("Deep Caves: Ramulken Lava Pool")
+            self.multiworld.exclude_locations[self.player].value.add("Deep Caves: After Omega")
 
         self.multiworld.get_location("The Last Metroid is in Captivity", self.player).place_locked_item(self.create_item("The Galaxy is at Peace"))
         items.create_all_items(self.multiworld, self.player)

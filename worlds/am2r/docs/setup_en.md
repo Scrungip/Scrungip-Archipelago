@@ -2,7 +2,7 @@
 
 ## Required Software
 - [Archipelago](https://github.com/ArchipelagoMW/Archipelago/releases/latest)
-- [AM2R Multiworld Mod](https://github.com/DodoBirby/AM2R-Multiworld-Mod/releases/latest)
+- [AM2R Multiworld Mod](https://github.com/DodoBirby/AM2R-Multiworld-Mod/releases/latest) or [AM2R Multiworld Mod: Resplashed](https://github.com/AbyssalCreature/AM2R-Re-Splashed/releases/tag/v1.0.0-MW)
 - [AM2R Launcher](https://github.com/AM2R-Community-Developers/AM2RLauncher/releases/latest)
 - Your self provided copy of AM2R 1.1 for the launcher
 
@@ -11,15 +11,16 @@
 ### Installing Multiworld Mod
 
 Download and set up the latest release of [AM2R Launcher](https://github.com/AM2R-Community-Developers/AM2RLauncher/releases) using your copy of AM2R 1.1 then in the launcher you can
-under the `Mod Settings` tab, hit the `ADD NEW MOD` button, and select Multiworld mod `.zip` file from [AM2R Multiworld Mod](https://github.com/DodoBirby/AM2R-Multiworld-Mod/releases/latest)
-finally from the `Play` tab select the `Multiworld` profile and hit `Install` and then play to load up the mod.
+under the `Mod Settings` tab, hit the `ADD NEW MOD` button, and select Multiworld mod `.zip` file from either of the Multiworld Mod downloads.
+
+Finally from the `Play` tab select the `Multiworld` profile and hit `Install` and then play to load up the mod.
 
 
 ### Installing `am2r.apworld`
 
-After downloading the `am2r.apworld` file you will need to move it to your standard 0.4.4  or newer installation of 
-[Archipelago](https://github.com/ArchipelagoMW/Archipelago/releases/latest), 
-you will need to navigate to the `/lib/worlds` folder of the Archipelago installation and add the `am2r.apworld` file into there.
+After downloading the `am2r.apworld` file you can either run the `am2r.apworld` file directly, use the 
+`ArchipelagoLauncher` executable from your [Archipelago Install](https://github.com/ArchipelagoMW/Archipelago/releases/latest) and the `Install APWorld` button, 
+or you can move it to `custom_worlds` manually in the Archipelago installation root directory. 
 
 From there you can use the `Archipelago Launcher` to find and open `AM2R Client` in the future steps.
 
@@ -91,13 +92,13 @@ Fuck you, if the testers can do it you can too, and if you cant do it play on an
 
 ### What is randomized?
 
-All items both majors and minors are randomized together in one pool with the option to add in the metroids as checks as well.
+All items both majors and minors are randomized together in one pool with the option to add in the metroids as checks too.
 
 ### What is the goal?
 
 The goal of this AM2R randomizer implementation is to kill or collect the self specified number of metroids to reach the queen metroid and save the baby metroid.
 
-This message sponsored by "The Galactic Federation"
+This message is sponsored by "The Galactic Federation"
 
 ### I softlocked myself
 
