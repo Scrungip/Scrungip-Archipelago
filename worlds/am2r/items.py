@@ -3,7 +3,7 @@ from collections import Counter
 from typing import Dict, List, NamedTuple, Set
 
 from BaseClasses import Item, ItemClassification, MultiWorld
-from .options import MetroidsAreChecks, MetroidsRequired, get_option_value, TrapFillPercentage, RemoveFloodTrap, RemoveTossTrap, RemoveShortBeam, RemoveEMPTrap, RemoveOHKOTrap, RemoveTouhouTrap
+from .options import MetroidsAreChecks, MetroidsInPool, MetroidsRequired, get_option_value, TrapFillPercentage, RemoveFloodTrap, RemoveTossTrap, RemoveShortBeam, RemoveEMPTrap, RemoveOHKOTrap, RemoveTouhouTrap
 
 
 class ItemData(NamedTuple):
@@ -28,12 +28,14 @@ def create_fixed_item_pool() -> List[str]:
     return list(Counter(required_items).elements())
 
 
-def create_metroid_items(MetroidsRequired: MetroidsRequired, MetroidsAreChecks: MetroidsAreChecks) -> List[str]:
+def create_metroid_items(MetroidsRequired: MetroidsRequired, MetroidsInPool: MetroidsInPool, MetroidsAreChecks: MetroidsAreChecks) -> List[str]:
     metroid_count = 0
+    if MetroidsRequired > MetroidsInPool:
+        MetroidsInPool = MetroidsRequired
     if MetroidsAreChecks == MetroidsAreChecks.option_include_A6:
-        metroid_count = MetroidsRequired.value
+        metroid_count = MetroidsInPool.value
     elif MetroidsAreChecks == MetroidsAreChecks.option_exclude_A6:
-        metroid_count += MetroidsRequired.value - 5
+        metroid_count = MetroidsInPool.value - 5
     return ["Metroid" for _ in range(metroid_count)]
 
 
@@ -80,7 +82,7 @@ def create_all_items(multiworld: MultiWorld, player: int) -> None:
 
     itempool = (
         create_fixed_item_pool()
-        + create_metroid_items(multiworld.MetroidsRequired[player], multiworld.MetroidsAreChecks[player])
+        + create_metroid_items(multiworld.MetroidsRequired[player], multiworld.MetroidsInPool[player], multiworld.MetroidsAreChecks[player])
     )
 
     trap_percentage = get_option_value(multiworld, player, "TrapFillPercentage")

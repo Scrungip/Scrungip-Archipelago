@@ -4,8 +4,16 @@ from Options import AssembleOptions, Choice, DeathLink, DefaultOnToggle, Range, 
 
 
 class MetroidsRequired(Range):
-    """Chose how many Metroids need to be killed or obtained to go through to the omega nest"""
+    """Chose how many Metroids need to be killed or obtained to go through to the Omega Nest"""
     display_name = "Metroids Required for Omega Nest"
+    range_start = 0
+    range_end = 46
+    default = 46
+
+
+class MetroidsInPool(Range):
+    """Chose how many Metroids will be in the pool, if Metroids are randomized. This will value will be ignored if smaller than the required amount"""
+    display_name = "Total Metroids in Pool"
     range_start = 0
     range_end = 46
     default = 46
@@ -109,6 +117,7 @@ class RemoveOHKOTrap(Toggle):
 
 AM2R_options: Dict[str, AssembleOptions] = {
     "MetroidsRequired": MetroidsRequired,
+    "MetroidsInPool": MetroidsInPool,
     "MetroidsAreChecks": MetroidsAreChecks,
     "TrapFillPercentage": TrapFillPercentage,
     "RemoveFloodTrap": RemoveFloodTrap,

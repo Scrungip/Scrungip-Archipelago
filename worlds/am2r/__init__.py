@@ -1,4 +1,5 @@
 import types
+import logging
 from typing import Dict
 from .items import item_table
 from .locations import get_location_datas, EventId
@@ -8,6 +9,7 @@ from .options import AM2R_options, MetroidsAreChecks
 from worlds.AutoWorld import World, WebWorld
 from worlds.LauncherComponents import Component, components, Type, launch_subprocess
 
+logger = logging.getLogger("AM2R")
 
 def launch_client():
     from .Client import launch
@@ -55,6 +57,8 @@ class AM2RWorld(World):
         return items.create_item(self.player, name)
 
     def create_items(self) -> None:
+        if self.options.MetroidsRequired > self.options.MetroidsInPool:
+            logger.warning(f"Metroid count raised to set requirement for {self.multiworld.get_player_name(self.player)} because the given count was too low for the requirement.")
         if self.options.MetroidsAreChecks != MetroidsAreChecks.option_include_A6:
             self.multiworld.get_location("Deep Caves: Lil\' Bro", self.player).place_locked_item(self.create_item("Metroid"))
             self.multiworld.get_location("Deep Caves: Big Sis", self.player).place_locked_item(self.create_item("Metroid"))
