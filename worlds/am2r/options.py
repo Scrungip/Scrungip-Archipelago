@@ -12,7 +12,8 @@ class MetroidsRequired(Range):
 
 
 class MetroidsInPool(Range):
-    """Chose how many Metroids will be in the pool, if Metroids are randomized. This will value will be ignored if smaller than the required amount"""
+    """Chose how many Metroids will be in the pool, if Metroids are randomized.
+    This will value will be ignored if smaller than the required amount"""
     display_name = "Total Metroids in Pool"
     range_start = 0
     range_end = 46

@@ -83,7 +83,7 @@ def create_all_items(multiworld: MultiWorld, player: int) -> None:
 
     itempool = (
         create_fixed_item_pool()
-        + create_metroid_items(multiworld.MetroidsRequired[player], multiworld.MetroidsInPool[player], multiworld.MetroidsAreChecks[player])
+        + create_metroid_items(multiworld.MetroidsRequired[player], multiworld.MetroidsInPool[player], multiworld.LocationSettings[player])
     )
 
     trap_percentage = get_option_value(multiworld, player, "TrapFillPercentage")
