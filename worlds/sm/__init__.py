@@ -580,10 +580,19 @@ class SMWorld(World):
                     "Grapple": "Grapple", "Morph": "Morph", "ReserveTank": "Reserve", "Gravity": "Gravity",
                     "XRay": "XRayScope", "SpaceJump": "SpaceJump", "ScrewAttack": "ScrewAttack"
                 }
+                MZMNameToSMType = {
+                    "Energy Tank": "ETank", "Missile Tank": "Missile", "Super Missle Tank": "Super", "Power Bomb Tank": "PowerBomb", "Bomb": "Bomb",
+                    "Charge Beam": "Charge", "Ice Beam": "Ice", "Hi-Jump": "HiJump", "Speed Booster": "SpeedBooster",
+                    "Wave Beam": "Wave", "Long Beam": "Spazer", "Varia Suit": "Varia", "Plasma Beam": "Plasma",
+                    "Power Grip": "Grapple", "Morph Ball": "Morph", "Gravity Suit": "Gravity",
+                    "Space Jump": "SpaceJump", "Screw Attack": "ScrewAttack", "Nothing": "Nothing"
+                }
                 if isinstance(itemLoc.item, SMItem) and itemLoc.item.type in ItemManager.Items:
                     itemId = ItemManager.Items[itemLoc.item.type].Id
                 elif itemLoc.item.game == "SMZ3" and itemLoc.item.name in SMZ3NameToSMType.keys():
                     itemId = ItemManager.Items[SMZ3NameToSMType[itemLoc.item.name]].Id
+                elif itemLoc.item.game == "Metroid Zero Mission" and itemLoc.item.name in MZMNameToSMType.keys():
+                    itemId = ItemManager.Items[MZMNameToSMType[itemLoc.item.name]].Id
                 else:
                     itemId = ItemManager.Items["ArchipelagoItem"].Id + idx
                     multiWorldItems.append({"sym": symbols["message_item_names"],
