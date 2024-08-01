@@ -581,7 +581,7 @@ class SMWorld(World):
                     "XRay": "XRayScope", "SpaceJump": "SpaceJump", "ScrewAttack": "ScrewAttack"
                 }
                 MZMNameToSMType = {
-                    "Energy Tank": "ETank", "Missile Tank": "Missile", "Super Missle Tank": "Super", "Power Bomb Tank": "PowerBomb", "Bomb": "Bomb",
+                    "Energy Tank": "ETank", "Missile Tank": "Missile", "Super Missile Tank": "Super", "Power Bomb Tank": "PowerBomb", "Bomb": "Bomb",
                     "Charge Beam": "Charge", "Ice Beam": "Ice", "Hi-Jump": "HiJump", "Speed Booster": "SpeedBooster",
                     "Wave Beam": "Wave", "Long Beam": "Spazer", "Varia Suit": "Varia", "Plasma Beam": "Plasma",
                     "Power Grip": "Grapple", "Morph Ball": "Morph", "Gravity Suit": "Gravity",
