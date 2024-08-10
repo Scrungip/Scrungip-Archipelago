@@ -584,14 +584,14 @@ class SMWorld(World):
                     "Energy Tank": "ETank", "Missile Tank": "Missile", "Super Missile Tank": "Super", "Power Bomb Tank": "PowerBomb", "Bomb": "Bomb",
                     "Charge Beam": "Charge", "Ice Beam": "Ice", "Hi-Jump": "HiJump", "Speed Booster": "SpeedBooster",
                     "Wave Beam": "Wave", "Long Beam": "Spazer", "Varia Suit": "Varia", "Plasma Beam": "Plasma",
-                    "Morph Ball": "Morph", "Gravity Suit": "Gravity",
+                    "Morph Ball": "Morph", "Gravity Suit": "Gravity", "Power Grip": "Grapple",
                     "Space Jump": "SpaceJump", "Screw Attack": "ScrewAttack", "Nothing": "Nothing"
                 }
                 MP1NameToSMType = {
                     "Energy Tank": "ETank", "Missile Expansion": "Missile", "Super Missile": "Super", "Power Bomb Expansion": "PowerBomb", "Morph Ball Bomb": "Bomb",
                     "Charge Beam": "Charge", "Ice Beam": "Ice", "Charge Beam (Power)": "Charge", "Charge Beam (Wave)": "Charge", "Charge Beam (Ice)": "Charge", "Charge Beam (Plasma)": "Charge",
                     "Wave Beam": "Wave", "SpringBall": "SpringBall", "Varia Suit": "Varia", "Plasma Beam": "Plasma",
-                    "Grapple Beam": "Grapple", "Morph Ball": "Morph", "Gravity Suit": "Gravity",
+                    "Grapple Beam": "Grapple", "Morph Ball": "Morph", "Gravity Suit": "Gravity", "Phazon Suit": "Gravity",
                     "X-Ray Visor": "XRayScope", "Space Jump Boots": "SpaceJump", "Spider Ball": "Morph",
                     "Power Bomb (Main)": "PowerBomb", "Missile Launcher": "Missile", "Boost Ball": "SpeedBooster",
                     "Ice Spreader": "Ice", "Wavebuster": "Wave", "Flamethrower": "Plasma", "Thermal Visor": "XRayScope", "Scan Visor": "XRayScope",
@@ -616,15 +616,15 @@ class SMWorld(World):
                 SJNameToSMType = {
                     "Heart": "ETank", "Magic Bolt": "Missile", "Baseball": "Super", "Sparksuit": "PowerBomb", "Rat Burst": "Bomb",
                     "Gem Of Death": "Charge", "Gem Of Ice": "Ice", "Feather": "HiJump", "Rat Dasher": "SpeedBooster",
-                    "Gem Of Blood": "Wave", "Spazer": "Spazer", "SpringBall": "SpringBall", "Purple Locket": "Varia", "Gem Of Storms": "Plasma",
-                    "Grapple Beam": "Grapple", "Rat Cloak": "Morph", "Lucky Frog": "Reserve", "Sanguine Fin": "Gravity",
-                    "XRay": "XRayScope", "Magic Broom": "SpaceJump", "Wave Bangle": "ScrewAttack", "Wallkicks": "HiJump",
+                    "Gem Of Blood": "Wave", "Purple Locket": "Varia", "Gem Of Storms": "Plasma",
+                    "Rat Cloak": "Morph", "Lucky Frog": "Reserve", "Sanguine Fin": "Gravity",
+                    "Magic Broom": "SpaceJump", "Wave Bangle": "ScrewAttack", "Wallkicks": "HiJump",
                     "Magic Soap": "Missile", "Dreamer's Crown": "SpeedBooster"
                 }
                 AM2RNameToSMType = {
                     "Energy Tank": "ETank", "Missile": "Missile", "Super Missile": "Super", "Power Bomb": "PowerBomb", "Bombs": "Bomb",
-                    "Charge Beam": "Charge", "Ice Beam": "Ice", "HiJump": "HiJump", "SpeedBooster": "SpeedBooster",
-                    "Wave": "Wave", "Spazer": "Spazer", "Spring Ball": "SpringBall", "Varia Suit": "Varia", "Plasma Beam": "Plasma",
+                    "Charge Beam": "Charge", "Ice Beam": "Ice", "Hi Jump": "HiJump", "Speed Booster": "SpeedBooster",
+                    "Wave Beam": "Wave", "Spazer": "Spazer", "Spring Ball": "SpringBall", "Varia Suit": "Varia", "Plasma Beam": "Plasma",
                     "Morph Ball": "Morph", "ReserveTank": "Reserve", "Gravity Suit": "Gravity",
                     "Space Jump": "SpaceJump", "Screw Attack": "ScrewAttack", "Spider Ball": "Morph"
                 }
